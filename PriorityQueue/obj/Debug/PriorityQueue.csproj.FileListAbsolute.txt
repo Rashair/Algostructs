@@ -11,3 +11,9 @@ C:\Users\Przemek\Documents\Visual Studio 2017\Projects\AiSD I\DataStructures\Pri
 C:\Users\Przemek\Documents\Visual Studio 2017\Projects\AiSD I\DataStructures\PriorityQueue\obj\Debug\PriorityQueue.csproj.CoreCompileInputs.cache
 C:\Users\Przemek\Documents\Visual Studio 2017\Projects\AiSD I\DataStructures\PriorityQueue\obj\Debug\PriorityQueue.dll
 C:\Users\Przemek\Documents\Visual Studio 2017\Projects\AiSD I\DataStructures\PriorityQueue\obj\Debug\PriorityQueue.pdb
+C:\Users\przem\Source\Repos\Data-Structures\PriorityQueue\bin\Debug\PriorityQueue.dll.config
+C:\Users\przem\Source\Repos\Data-Structures\PriorityQueue\bin\Debug\PriorityQueue.dll
+C:\Users\przem\Source\Repos\Data-Structures\PriorityQueue\bin\Debug\PriorityQueue.pdb
+C:\Users\przem\Source\Repos\Data-Structures\PriorityQueue\obj\Debug\PriorityQueue.csproj.CoreCompileInputs.cache
+C:\Users\przem\Source\Repos\Data-Structures\PriorityQueue\obj\Debug\PriorityQueue.dll
+C:\Users\przem\Source\Repos\Data-Structures\PriorityQueue\obj\Debug\PriorityQueue.pdb

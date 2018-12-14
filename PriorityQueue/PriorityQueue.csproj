@@ -40,7 +40,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Beap.cs" />
-    <Compile Include="FibonacciHeap.cs" />
     <Compile Include="BinomialHeap.cs" />
     <Compile Include="Heap.cs" />
     <Compile Include="SkewHeap.cs" />

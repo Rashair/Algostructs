@@ -1,32 +1,17 @@
-C:\Users\Przemek\Documents\Visual Studio 2017\Projects\AiSD I\PriorityQueue\PriorityQueueTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
-C:\Users\Przemek\Documents\Visual Studio 2017\Projects\AiSD I\PriorityQueue\PriorityQueueTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
-C:\Users\Przemek\Documents\Visual Studio 2017\Projects\AiSD I\PriorityQueue\PriorityQueueTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
-C:\Users\Przemek\Documents\Visual Studio 2017\Projects\AiSD I\PriorityQueue\PriorityQueueTests\bin\Debug\PriorityQueueTests.dll
-C:\Users\Przemek\Documents\Visual Studio 2017\Projects\AiSD I\PriorityQueue\PriorityQueueTests\bin\Debug\PriorityQueueTests.pdb
-C:\Users\Przemek\Documents\Visual Studio 2017\Projects\AiSD I\PriorityQueue\PriorityQueueTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.dll
-C:\Users\Przemek\Documents\Visual Studio 2017\Projects\AiSD I\PriorityQueue\PriorityQueueTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll
-C:\Users\Przemek\Documents\Visual Studio 2017\Projects\AiSD I\PriorityQueue\PriorityQueueTests\bin\Debug\PriorityQueue.dll
-C:\Users\Przemek\Documents\Visual Studio 2017\Projects\AiSD I\PriorityQueue\PriorityQueueTests\bin\Debug\PriorityQueue.pdb
-C:\Users\Przemek\Documents\Visual Studio 2017\Projects\AiSD I\PriorityQueue\PriorityQueueTests\bin\Debug\PriorityQueue.dll.config
-C:\Users\Przemek\Documents\Visual Studio 2017\Projects\AiSD I\PriorityQueue\PriorityQueueTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.xml
-C:\Users\Przemek\Documents\Visual Studio 2017\Projects\AiSD I\PriorityQueue\PriorityQueueTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.xml
-C:\Users\Przemek\Documents\Visual Studio 2017\Projects\AiSD I\PriorityQueue\PriorityQueueTests\obj\Debug\PriorityQueueTests.csprojAssemblyReference.cache
-C:\Users\Przemek\Documents\Visual Studio 2017\Projects\AiSD I\PriorityQueue\PriorityQueueTests\obj\Debug\PriorityQueueTests.csproj.CoreCompileInputs.cache
-C:\Users\Przemek\Documents\Visual Studio 2017\Projects\AiSD I\PriorityQueue\PriorityQueueTests\obj\Debug\PriorityQueueTests.csproj.CopyComplete
-C:\Users\Przemek\Documents\Visual Studio 2017\Projects\AiSD I\PriorityQueue\PriorityQueueTests\obj\Debug\PriorityQueueTests.dll
-C:\Users\Przemek\Documents\Visual Studio 2017\Projects\AiSD I\PriorityQueue\PriorityQueueTests\obj\Debug\PriorityQueueTests.pdb
-C:\Users\Przemek\Documents\Visual Studio 2017\Projects\AiSD I\DataStructures\PriorityQueueTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
-C:\Users\Przemek\Documents\Visual Studio 2017\Projects\AiSD I\DataStructures\PriorityQueueTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
-C:\Users\Przemek\Documents\Visual Studio 2017\Projects\AiSD I\DataStructures\PriorityQueueTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
-C:\Users\Przemek\Documents\Visual Studio 2017\Projects\AiSD I\DataStructures\PriorityQueueTests\bin\Debug\PriorityQueueTests.dll
-C:\Users\Przemek\Documents\Visual Studio 2017\Projects\AiSD I\DataStructures\PriorityQueueTests\bin\Debug\PriorityQueueTests.pdb
-C:\Users\Przemek\Documents\Visual Studio 2017\Projects\AiSD I\DataStructures\PriorityQueueTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.dll
-C:\Users\Przemek\Documents\Visual Studio 2017\Projects\AiSD I\DataStructures\PriorityQueueTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll
-C:\Users\Przemek\Documents\Visual Studio 2017\Projects\AiSD I\DataStructures\PriorityQueueTests\bin\Debug\PriorityQueue.dll
-C:\Users\Przemek\Documents\Visual Studio 2017\Projects\AiSD I\DataStructures\PriorityQueueTests\bin\Debug\PriorityQueue.pdb
-C:\Users\Przemek\Documents\Visual Studio 2017\Projects\AiSD I\DataStructures\PriorityQueueTests\bin\Debug\PriorityQueue.dll.config
-C:\Users\Przemek\Documents\Visual Studio 2017\Projects\AiSD I\DataStructures\PriorityQueueTests\obj\Debug\PriorityQueueTests.csprojAssemblyReference.cache
-C:\Users\Przemek\Documents\Visual Studio 2017\Projects\AiSD I\DataStructures\PriorityQueueTests\obj\Debug\PriorityQueueTests.csproj.CoreCompileInputs.cache
-C:\Users\Przemek\Documents\Visual Studio 2017\Projects\AiSD I\DataStructures\PriorityQueueTests\obj\Debug\PriorityQueueTests.csproj.CopyComplete
-C:\Users\Przemek\Documents\Visual Studio 2017\Projects\AiSD I\DataStructures\PriorityQueueTests\obj\Debug\PriorityQueueTests.dll
-C:\Users\Przemek\Documents\Visual Studio 2017\Projects\AiSD I\DataStructures\PriorityQueueTests\obj\Debug\PriorityQueueTests.pdb
+C:\Users\przem\source\repos\Data-Structures\PriorityQueueTests\obj\Debug\PriorityQueueTests.csprojAssemblyReference.cache
+C:\Users\przem\source\repos\Data-Structures\PriorityQueueTests\obj\Debug\PriorityQueueTests.csproj.CoreCompileInputs.cache
+C:\Users\przem\source\repos\Data-Structures\PriorityQueueTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
+C:\Users\przem\source\repos\Data-Structures\PriorityQueueTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
+C:\Users\przem\source\repos\Data-Structures\PriorityQueueTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
+C:\Users\przem\source\repos\Data-Structures\PriorityQueueTests\bin\Debug\PriorityQueueTests.dll
+C:\Users\przem\source\repos\Data-Structures\PriorityQueueTests\bin\Debug\PriorityQueueTests.pdb
+C:\Users\przem\source\repos\Data-Structures\PriorityQueueTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.dll
+C:\Users\przem\source\repos\Data-Structures\PriorityQueueTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll
+C:\Users\przem\source\repos\Data-Structures\PriorityQueueTests\bin\Debug\PriorityQueue.dll
+C:\Users\przem\source\repos\Data-Structures\PriorityQueueTests\bin\Debug\PriorityQueue.pdb
+C:\Users\przem\source\repos\Data-Structures\PriorityQueueTests\bin\Debug\PriorityQueue.dll.config
+C:\Users\przem\source\repos\Data-Structures\PriorityQueueTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.xml
+C:\Users\przem\source\repos\Data-Structures\PriorityQueueTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.xml
+C:\Users\przem\source\repos\Data-Structures\PriorityQueueTests\obj\Debug\PriorityQueueTests.csproj.CopyComplete
+C:\Users\przem\source\repos\Data-Structures\PriorityQueueTests\obj\Debug\PriorityQueueTests.dll
+C:\Users\przem\source\repos\Data-Structures\PriorityQueueTests\obj\Debug\PriorityQueueTests.pdb
