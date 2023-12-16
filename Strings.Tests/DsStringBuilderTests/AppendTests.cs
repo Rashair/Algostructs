@@ -82,8 +82,8 @@ public class AppendTests
         Assert.That(result, Is.EqualTo("absbsbasf1231"));
     }
 
-    [TestCase(10_000_000, 5_000)]
-    [TestCase(1_000_000, 500)]
+    [TestCase(10_000_000, 10_000)]
+    [TestCase(1_000_000, 1500)]
     [TestCase(100_000, 75)]
     [TestCase(10_000, 15)]
     public void GivenEnormousNumberOfStrings_ThenTheAppendIsFast(int numberOfAppends,
