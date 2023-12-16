@@ -1,4 +1,8 @@
-﻿using NUnit.Framework;
+﻿using System;
+using System.Diagnostics.CodeAnalysis;
+using System.Threading;
+using NUnit.Framework;
+using Tests.Common;
 
 namespace Strings.Tests.DsStringBuilderTests;
 
@@ -76,5 +80,29 @@ public class AppendTests
 
         // Assert
         Assert.That(result, Is.EqualTo("absbsbasf1231"));
+    }
+
+    [TestCase(10_000_000, 3_000)]
+    [TestCase(1_000_000, 300)]
+    [TestCase(100_000, 75)]
+    [TestCase(10_000, 15)]
+    public void GivenEnormousNumberOfStrings_ThenTheAppendIsFast(int numberOfAppends,
+        int timeoutMs)
+    {
+        // Arrange
+        var ct = TestsHelper.CreateCancellationToken(timeoutMs);
+        var sb = new DsStringBuilder();
+
+        // Act
+        var guidLength = Guid.NewGuid().ToString().Length;
+        for (int i = 0; i < numberOfAppends; ++i)
+        {
+            ct.ThrowIfCancellationRequested();
+            sb.Append(Guid.NewGuid().ToString());
+        }
+        var result = sb.ToString();
+
+        // Assert
+        Assert.That(result, Has.Length.EqualTo(numberOfAppends * guidLength));
     }
 }

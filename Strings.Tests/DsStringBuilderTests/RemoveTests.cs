@@ -1,5 +1,9 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
+using System.Linq;
+using System.Threading;
 using NUnit.Framework;
+using Tests.Common;
 
 namespace Strings.Tests.DsStringBuilderTests;
 
@@ -96,5 +100,41 @@ public class RemoveTests
         // Act & Assert
         Assert.Throws<ArgumentOutOfRangeException>(() => sb.Remove(0,sb.Length + 1));
         Assert.That(sb.ToString(), Is.EqualTo("abc def SDFSóó"));
+    }
+
+    [TestCase(150_000, 6_000)]
+    [TestCase(100_000, 1_500)]
+    [TestCase(50_000, 500)]
+    [TestCase(10_000, 30)]
+    public void GivenEnormousNumberOfStrings_ThenTheRemoveIsFast(int numberOfRepeats,
+        int timeoutMs)
+    {
+        // Arrange
+        var ct = TestsHelper.CreateCancellationToken(timeoutMs);
+        const string phrase = "a#G1";
+        string finalStr = PrepareBigString(phrase, numberOfRepeats);
+        var sb = new DsStringBuilder(finalStr);
+
+        // Act
+        for (int i = 0; i < numberOfRepeats - 1; ++i)
+        {
+            ct.ThrowIfCancellationRequested();
+            sb.Remove(0, phrase.Length);
+        }
+        var result = sb.ToString();
+
+        // Assert
+        Assert.That(result, Is.EqualTo(phrase));
+    }
+
+    private static string PrepareBigString(string phrase, int numberOfRepeats)
+    {
+        var externalBuilder = new System.Text.StringBuilder();
+        foreach (var str in Enumerable.Repeat(phrase, numberOfRepeats))
+        {
+            externalBuilder.Append(str);
+        }
+
+        return externalBuilder.ToString();
     }
 }
