@@ -1,50 +1,84 @@
-﻿using System.Text;
-
-namespace Strings;
+﻿namespace Strings;
 
 public class DsStringBuilder
 {
-    private readonly StringBuilder _builder;
+    private readonly List<char> _values;
 
     public DsStringBuilder()
     {
-        _builder = new();
+        _values = [];
     }
 
     public DsStringBuilder(string str)
     {
-        _builder = new(str);
+        _values = [..str];
     }
+
+    public int Length => _values.Count;
 
     public void Append(string str)
     {
-        _builder.Append(str);
+        _values.AddRange(str);
     }
 
     public void Insert(int index, string str)
     {
-        _builder.Insert(index, str);
+        _values.InsertRange(index, str);
     }
 
     public void Remove(int startIndex, int length)
     {
-        _builder.Remove(startIndex, length);
+        if (startIndex + length > _values.Count)
+        {
+            throw new ArgumentOutOfRangeException(nameof(length));
+        }
+
+        if (startIndex < 0)
+        {
+            throw new ArgumentOutOfRangeException(nameof(startIndex));
+        }
+
+        if (length <= 0)
+        {
+            throw new ArgumentOutOfRangeException(nameof(length));
+        }
+
+        _values.RemoveRange(startIndex, length);
     }
+
+    private const int NumberBase = 128;
 
     public void Replace(string pattern, string replacement)
     {
-        _builder.Replace(pattern, replacement);
+        var searcher = new RabinKarpSearcher(_values);
+
+        var indexes = searcher.Search(pattern);
+        if (indexes.Count == 0)
+        {
+            return;
+        }
+
+        if (replacement.Length > pattern.Length)
+        {
+            _values.EnsureCapacity(_values.Count + (replacement.Length - pattern.Length) * indexes.Count);
+        }
+
+        int indexShift = 0;
+        foreach (var ind in indexes)
+        {
+            _values.RemoveRange(ind + indexShift, pattern.Length);
+            _values.InsertRange(ind + indexShift, replacement);
+            indexShift += replacement.Length - pattern.Length;
+        }
     }
 
     public void Clear()
     {
-        _builder.Clear();
+        _values.Clear();
     }
-
-    public int Length => _builder.Length;
 
     public override string ToString()
     {
-        return _builder.ToString();
+        return string.Concat(_values);
     }
 }
