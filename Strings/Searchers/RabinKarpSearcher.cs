@@ -1,24 +1,21 @@
-﻿namespace Strings;
+﻿namespace Strings.Searchers;
 
-internal class RabinKarpSearcher(IReadOnlyList<char> _values)
+public class RabinKarpSearcher : ISearcher
 {
     private const int NumberBase = 128;
+    private readonly IReadOnlyList<char> _values;
+
+    public RabinKarpSearcher(IReadOnlyList<char> values)
+    {
+        _values = values;
+    }
+
+    public int Length => _values.Count;
 
     public List<int> Search(string pattern)
     {
-        // Pre compute hashes
         const ulong mod = int.MaxValue;
-        ulong max = (ulong)Math.Pow(NumberBase, pattern.Length - 1) % mod;
-        var valueOfNextXChars = new ulong[_values.Count - pattern.Length + 1];
-
-        int nonApplicableRangeStart = valueOfNextXChars.Length;
-        ulong currentValue = ComputeValuesHash(nonApplicableRangeStart, pattern.Length - 1, mod);
-        for (int i = nonApplicableRangeStart - 1; i >= 0; --i)
-        {
-            currentValue = (currentValue * NumberBase + _values[i]) % mod;
-            valueOfNextXChars[i] = currentValue;
-            currentValue -= _values[i + pattern.Length - 1] * max % mod;
-        }
+        ulong[] valueOfNextXChars = ComputeHashes(pattern.Length, mod);
 
         // Search
         var indexes = new List<int>();
@@ -30,13 +27,29 @@ internal class RabinKarpSearcher(IReadOnlyList<char> _values)
                 continue;
             }
 
-            if(IsEqualToValuesInRange(pattern, i))
+            if (IsEqualToValuesInRange(pattern, i))
             {
                 indexes.Add(i);
             }
         }
 
         return indexes;
+    }
+
+    private ulong[] ComputeHashes(int patternLength, ulong mod)
+    {
+        ulong max = (ulong) Math.Pow(NumberBase, patternLength - 1) % mod;
+        var valueOfNextXChars = new ulong[_values.Count - patternLength + 1];
+        int nonApplicableRangeStart = valueOfNextXChars.Length;
+        ulong currentValue = ComputeValuesHash(nonApplicableRangeStart, patternLength - 1, mod);
+        for (int i = nonApplicableRangeStart - 1; i >= 0; --i)
+        {
+            currentValue = (currentValue * NumberBase + _values[i]) % mod;
+            valueOfNextXChars[i] = currentValue;
+            currentValue -= _values[i + patternLength - 1] * max % mod;
+        }
+
+        return valueOfNextXChars;
     }
 
     private ulong ComputeValuesHash(int start, int length, ulong mod = 0)
@@ -64,7 +77,7 @@ internal class RabinKarpSearcher(IReadOnlyList<char> _values)
         ulong result = 0;
         for (int i = start + length - 1; i >= start; --i)
         {
-            result = result * NumberBase % mod + (ulong)getValue(i);
+            result = result * NumberBase % mod + (ulong) getValue(i);
         }
 
         return result;

@@ -1,4 +1,6 @@
-﻿namespace Strings;
+﻿using Strings.Searchers;
+
+namespace Strings;
 
 public class DsStringBuilder
 {
@@ -46,12 +48,9 @@ public class DsStringBuilder
         _values.RemoveRange(startIndex, length);
     }
 
-    private const int NumberBase = 128;
-
     public void Replace(string pattern, string replacement)
     {
-        var searcher = new RabinKarpSearcher(_values);
-
+        var searcher = GetSearcher();
         var indexes = searcher.Search(pattern);
         if (indexes.Count == 0)
         {
@@ -70,6 +69,11 @@ public class DsStringBuilder
             _values.InsertRange(ind + indexShift, replacement);
             indexShift += replacement.Length - pattern.Length;
         }
+    }
+
+    private ISearcher GetSearcher()
+    {
+        return new KnuthMorrisSearcher(_values);
     }
 
     public void Clear()
