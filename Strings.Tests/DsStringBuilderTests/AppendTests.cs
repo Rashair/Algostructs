@@ -1,8 +1,4 @@
-﻿using System;
-using System.Diagnostics.CodeAnalysis;
-using System.Threading;
-using NUnit.Framework;
-using Tests.Common;
+﻿using Tests.Common;
 
 namespace Strings.Tests.DsStringBuilderTests;
 
@@ -56,6 +52,20 @@ public class AppendTests
     }
 
     [Test]
+    public void GivenEmptyStringAppend_ThenEmptyStringIsReturned()
+    {
+        // Arrange
+        var sb = new DsStringBuilder();
+
+        // Act
+        sb.Append("");
+        var result = sb.ToString();
+
+        // Assert
+        Assert.That(result, Is.EqualTo(""));
+    }
+
+    [Test]
     public void GivenConstructorArgument_ThenCorrectStringIsReturned()
     {
         // Arrange
@@ -86,23 +96,23 @@ public class AppendTests
     [TestCase(1_000_000, 1500)]
     [TestCase(100_000, 75)]
     [TestCase(10_000, 15)]
-    public void GivenEnormousNumberOfStrings_ThenTheAppendIsFast(int numberOfAppends,
+    public void GivenEnormousNumberOfStrings_ThenTheIsertIsFast(int numberOfAppends,
         int timeoutMs)
     {
         // Arrange
-        var ct = TestsHelper.CreateCancellationToken(timeoutMs);
         var sb = new DsStringBuilder();
 
         // Act
-        var guidLength = Guid.NewGuid().ToString().Length;
+        var ct = TestsHelper.CreateCancellationToken(timeoutMs);
+        const string guid = "F32BD441-DF16-44C0-AC0D-6DBABE95260D";
         for (int i = 0; i < numberOfAppends; ++i)
         {
             ct.ThrowIfCancellationRequested();
-            sb.Append(Guid.NewGuid().ToString());
+            sb.Append(guid);
         }
         var result = sb.ToString();
 
         // Assert
-        Assert.That(result, Has.Length.EqualTo(numberOfAppends * guidLength));
+        Assert.That(result, Has.Length.EqualTo(numberOfAppends * guid.Length));
     }
 }

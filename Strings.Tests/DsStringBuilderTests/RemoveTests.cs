@@ -1,9 +1,4 @@
-﻿using System;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Threading;
-using NUnit.Framework;
-using Tests.Common;
+﻿using Tests.Common;
 
 namespace Strings.Tests.DsStringBuilderTests;
 
@@ -110,12 +105,12 @@ public class RemoveTests
         int timeoutMs)
     {
         // Arrange
-        var ct = TestsHelper.CreateCancellationToken(timeoutMs);
         const string phrase = "a#G1";
         string finalStr = PrepareBigString(phrase, numberOfRepeats);
         var sb = new DsStringBuilder(finalStr);
 
         // Act
+        var ct = TestsHelper.CreateCancellationToken(timeoutMs);
         for (int i = 0; i < numberOfRepeats - 1; ++i)
         {
             ct.ThrowIfCancellationRequested();

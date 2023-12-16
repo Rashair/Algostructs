@@ -8,12 +8,12 @@ public class DsStringBuilder
 
     public DsStringBuilder()
     {
-        _builder = new StringBuilder();
+        _builder = new();
     }
 
     public DsStringBuilder(string str)
     {
-        _builder = new StringBuilder(str);
+        _builder = new(str);
     }
 
     public void Append(string str)
