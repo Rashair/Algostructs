@@ -77,8 +77,6 @@ public abstract class PriorityQueueTests
             int val = priorityQueue.Max();
             priorityQueue.DeleteMax();
 
-            Console.WriteLine($"{val} ");
-
             Assert.That(val,  Is.EqualTo(values[j]), $"Current max should be {values[j]}");
             j += 1;
         }
@@ -111,8 +109,6 @@ public abstract class PriorityQueueTests
         {
             int val = priorityQueue.Max();
             priorityQueue.DeleteMax();
-
-            Console.WriteLine($"{val} ");
 
             Assert.That(val, Is.EqualTo(values[j]), $"Current max should be {values[j]}");
             j += 1;
