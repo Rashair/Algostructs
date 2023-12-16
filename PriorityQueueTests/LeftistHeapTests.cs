@@ -1,10 +1,8 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using PriorityQueue;
+﻿using PriorityQueue;
 
 namespace PriorityQueueTests
 {
-    [TestClass]
+    [TestFixture]
     public class LeftistHeapTests : MergeablePriorityQueueTests<LeftistHeap<int>>
     {
         public override LeftistHeap<int> CreateMergeableInstance()

@@ -1,10 +1,8 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using PriorityQueue;
+﻿using PriorityQueue;
 
 namespace PriorityQueueTests
 { 
-    [TestClass]
+    [TestFixture]
     public class BeapTests : PriorityQueueTests
     {
         public override IPriorityQueue<int> CreateInstance()
@@ -12,39 +10,39 @@ namespace PriorityQueueTests
             return new Beap<int>();
         }
 
-        [TestMethod]
+        [Test]
         public void HelpMethodsTest1()
         {
-            Assert.AreEqual(5, Beap<int>.RowCol2Index(2, 2));
-            Assert.AreEqual((2, 2), Beap<int>.Index2RowCol(5));
+            Assert.That(5, Is.EqualTo(Beap<int>.RowCol2Index(2, 2)));
+            Assert.That((2, 2), Is.EqualTo(Beap<int>.Index2RowCol(5)));
         }
 
-        [TestMethod]
+        [Test]
         public void HelpMethodsTest2()
         {
-            Assert.AreEqual(4, Beap<int>.RowCol2Index(2, 1));
-            Assert.AreEqual((2, 1), Beap<int>.Index2RowCol(4));
+            Assert.That(Beap<int>.RowCol2Index(2, 1), Is.EqualTo(4));
+            Assert.That((2, 1), Is.EqualTo(Beap<int>.Index2RowCol(4)));
         }
 
-        [TestMethod]
+        [Test]
         public void HelpMethodsTest3()
         {
-            Assert.AreEqual(3, Beap<int>.RowCol2Index(2, 0));
-            Assert.AreEqual((2, 0), Beap<int>.Index2RowCol(3));
+            Assert.That(Beap<int>.RowCol2Index(2, 0), Is.EqualTo(3));
+            Assert.That((2, 0), Is.EqualTo(Beap<int>.Index2RowCol(3)));
         }
 
-        [TestMethod]
+        [Test]
         public void HelpMethodsTestRand()
         {
             int i = rand.Next() % (int)Math.Sqrt(Int32.MaxValue);
             int j = rand.Next() % (i + 1);
-            Assert.AreEqual((i, j), Beap<int>.Index2RowCol(Beap<int>.RowCol2Index(i, j)));
+            Assert.That((i, j), Is.EqualTo(Beap<int>.Index2RowCol(Beap<int>.RowCol2Index(i, j))));
 
             int k = rand.Next();
-            Assert.AreEqual(k, Beap<int>.RowCol2Index(Beap<int>.Index2RowCol(k).Item1, Beap<int>.Index2RowCol(k).Item2));
+            Assert.That(k, Is.EqualTo(Beap<int>.RowCol2Index(Beap<int>.Index2RowCol(k).Item1, Beap<int>.Index2RowCol(k).Item2)));
         }
 
-        [TestMethod]
+        [Test]
         public void SearchTest()
         {
             var beap = new Beap<int>();
@@ -55,20 +53,20 @@ namespace PriorityQueueTests
                 beap.Insert(values[i]);
             }
 
-            Assert.AreEqual(beap[beap.Search(15)], 15, "Index of 15 should be 0");
-            Assert.AreEqual(beap[beap.Search(0)], 0, "Index of 0 should be 1");
-            Assert.AreEqual(beap[beap.Search(1)], 1, "Index of 1 should be 2");
-            Assert.AreEqual(beap[beap.Search(-5)], -5, "Index of -5 should be 3");
-            Assert.AreEqual(beap[beap.Search(-45)], -45, "Index of -45 should be 4");
-            Assert.AreEqual(beap[beap.Search(-2)], -2, "Index of -2 should be 5");
+            Assert.That(15, Is.EqualTo(beap[beap.Search(15)]), "Index of 15 should be 0");
+            Assert.That(0, Is.EqualTo(beap[beap.Search(0)]), "Index of 0 should be 1");
+            Assert.That(1, Is.EqualTo(beap[beap.Search(1)]), "Index of 1 should be 2");
+            Assert.That(-5, Is.EqualTo(beap[beap.Search(-5)]), "Index of -5 should be 3");
+            Assert.That(-45, Is.EqualTo(beap[beap.Search(-45)]), "Index of -45 should be 4");
+            Assert.That(-2, Is.EqualTo(beap[beap.Search(-2)]), "Index of -2 should be 5");
 
-            Assert.AreEqual(beap[beap.Search(339)], 339);
+            Assert.That(339, Is.EqualTo(beap[beap.Search(339)]));
 
-            Assert.AreEqual(-1, beap.Search(-1), "Should not have find value -1 in beap");
-            Assert.AreEqual(-1, beap.Search(4), "Should not have find value 4 in beap");
+            Assert.That(beap.Search(-1), Is.EqualTo(-1), "Should not have find value -1 in beap");
+            Assert.That(beap.Search(4), Is.EqualTo(-1), "Should not have find value 4 in beap");
         }
 
-        [TestMethod]
+        [Test]
         public void SearchTest1()
         {
             var beap = new Beap<int>();
@@ -79,13 +77,13 @@ namespace PriorityQueueTests
                 beap.Insert(values[i]);
             }
 
-            Assert.AreEqual(beap[beap.Search(15)], 15, "Index of 15 should be 0");
-            Assert.AreEqual(beap[beap.Search(0)], 0, "Index of 0 should be 1");
-            Assert.AreEqual(beap[beap.Search(1)], 1, "Index of 1 should be 2");
-            Assert.AreEqual(beap[beap.Search(-5)], -5, "Index of -5 should be 3");
-            Assert.AreEqual(beap[beap.Search(-45)], -45, "Index of -45 should be 4");
+            Assert.That(15,  Is.EqualTo(beap[beap.Search(15)]), "Index of 15 should be 0");
+            Assert.That(0,  Is.EqualTo(beap[beap.Search(0)]), "Index of 0 should be 1");
+            Assert.That(1,  Is.EqualTo(beap[beap.Search(1)]), "Index of 1 should be 2");
+            Assert.That(-5,  Is.EqualTo(beap[beap.Search(-5)]), "Index of -5 should be 3");
+            Assert.That(-45,  Is.EqualTo(beap[beap.Search(-45)]), "Index of -45 should be 4");
 
-            Assert.AreEqual(-1, beap.Search(-2), "Should not have find value -1 in beap");
+            Assert.That(beap.Search(-2), Is.EqualTo(-1), "Should not have find value -1 in beap");
         }
     }
 }

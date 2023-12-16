@@ -1,12 +1,9 @@
-﻿using System;
-using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using PriorityQueue;
+﻿using PriorityQueue;
 
 namespace PriorityQueueTests
 {
 
-    [TestClass]
+    [TestFixture]
     public class HeapTests : PriorityQueueTests
     {
         public override IPriorityQueue<int> CreateInstance()
@@ -14,27 +11,27 @@ namespace PriorityQueueTests
             return new Heap<int>();
         }
 
-        [TestMethod]
+        [Test]
         public void HeapBuildSizeTest()
         {
             var tab = new int[] { 1, 2, 3, 4, 5, -5100, 33, 3, 4, 4, 56, 7, 55 };
 
             var heap = new Heap<int>(tab);
 
-            Assert.AreEqual(heap.Size, tab.Length);
+            Assert.That(heap.Size, Is.EqualTo(tab.Length));
         }
 
-        [TestMethod]
+        [Test]
         public void HeapBuildMaxTest()
         {
             var tab = new int[] { 1, 2, 3, 4, 5, -5100, 33, 3, 4, 4, 56, 7, 55 };
 
             var heap = new Heap<int>(tab);
 
-            Assert.AreEqual(heap.Max(), tab.Max());
+            Assert.That(tab.Max(), Is.EqualTo(heap.Max()));
         }
 
-        [TestMethod]
+        [Test]
         public void HeapBuildOrderTest()
         {
             var tab = new int[] { 1, 2, 3, 4, 5, -5100, 33, 3, 4, 4, 56, 7, 55 };
@@ -49,11 +46,11 @@ namespace PriorityQueueTests
                 int max = heap.Max();
                 heap.DeleteMax();
 
-                Assert.AreEqual(max, tab[i]);
+                Assert.That(tab[i], Is.EqualTo(max));
             }
         }
 
-        [TestMethod]
+        [Test]
         public void HeapDeleteTest()
         {
             var tab = new int[] { 1, 2, 3, 4, 5, -5100, 33, 3, 4, 4, 56, 7, 55 };
@@ -64,8 +61,8 @@ namespace PriorityQueueTests
             heap.Delete((heap.Size - 1 - 1) / 2);
             heap.Delete(1);
 
-            Assert.AreEqual(tab.Length - 3, heap.Size);
-            Assert.AreEqual(tab.Max(), heap.Max());
+            Assert.That(tab.Length - 3, Is.EqualTo(heap.Size));
+            Assert.That(heap.Max(), Is.EqualTo(tab.Max()));
         }
     }
 

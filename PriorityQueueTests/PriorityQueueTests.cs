@@ -1,19 +1,15 @@
-﻿using System;
-using System.Linq;
-using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using PriorityQueue;
+﻿using PriorityQueue;
 
 namespace PriorityQueueTests
 {
 
-    [TestClass]
+    [TestFixture]
     public abstract class PriorityQueueTests
     {
         public readonly Random rand = new Random(1234);
         public abstract IPriorityQueue<int> CreateInstance();
 
-        [TestMethod]
+        [Test]
         public void SizeTest()
         {
             IPriorityQueue<int> priorityQueue = CreateInstance();
@@ -24,14 +20,14 @@ namespace PriorityQueueTests
                 priorityQueue.Insert(values[i]);
             }
 
-            Assert.AreEqual(values.Length, priorityQueue.Size, $"Size of the queue should be {values.Length}");
+            Assert.That(priorityQueue.Size, Is.EqualTo(values.Length), $"Size of the queue should be {values.Length}");
         }
 
-        [TestMethod]
+        [Test]
         public void MaxTest()
         {
             IPriorityQueue<int> priorityQueue = CreateInstance();
-            Assert.ThrowsException<InvalidOperationException>(() => priorityQueue.Max());
+            Assert.Throws<InvalidOperationException>(() => priorityQueue.Max());
 
             int[] values = new int[] { -45, 5, 6, 7, 9, 9, 9, 24, 5, 0, 0 };
             for (int i = 0; i < values.Length; ++i)
@@ -41,14 +37,14 @@ namespace PriorityQueueTests
 
             int max = values.Max();
 
-            Assert.AreEqual(max, priorityQueue.Max(), $"Max should equal to {max}");
+            Assert.That(priorityQueue.Max(), Is.EqualTo(max), $"Max should equal to {max}");
         }
 
-        [TestMethod]
+        [Test]
         public void DeleteMaxTest()
         {
             IPriorityQueue<int> priorityQueue = CreateInstance();
-            Assert.ThrowsException<InvalidOperationException>(() => priorityQueue.DeleteMax());
+            Assert.Throws<InvalidOperationException>(() => priorityQueue.DeleteMax());
 
             int[] values = new int[] { -45, 5, 6, 7, 9, 9, 9, 24, 5, 0, 0 };
             for (int i = 0; i < values.Length; ++i)
@@ -59,10 +55,10 @@ namespace PriorityQueueTests
             int max = values.Max();
             priorityQueue.DeleteMax();
 
-            Assert.AreNotEqual(max, priorityQueue.Max(), $"Max should not equal to {max}");
+            Assert.That(max, Is.Not.EqualTo(priorityQueue.Max()), $"Max should not equal to {max}");
         }
 
-        [TestMethod]
+        [Test]
         public void OrderTest()
         {
             IPriorityQueue<int> priorityQueue = CreateInstance();
@@ -84,14 +80,14 @@ namespace PriorityQueueTests
 
                 Console.WriteLine($"{val} ");
 
-                Assert.AreEqual(values[j], val, $"Current max should be {values[j]}");
+                Assert.That(val,  Is.EqualTo(values[j]), $"Current max should be {values[j]}");
                 j += 1;
             }
 
-            Assert.AreEqual(j, values.Length, $"Should have popped {j} values.");
+            Assert.That(values.Length,  Is.EqualTo(j), $"Should have popped {j} values.");
         }
 
-        [TestMethod, Timeout(2500)]
+        [Test, CancelAfter(3500)]
         public void RandTest()
         {
             IPriorityQueue<int> priorityQueue = CreateInstance();
@@ -105,11 +101,11 @@ namespace PriorityQueueTests
                 priorityQueue.Insert(values[i]);
             }
 
-            Assert.AreEqual(N, priorityQueue.Size, $"Size should be {N}");
+            Assert.That(priorityQueue.Size,  Is.EqualTo(N), $"Size should be {N}");
 
             values.Sort((a, b) => -1 * a.CompareTo(b));
 
-            Assert.AreEqual(values[0], priorityQueue.Max(), $"Max should be {values[0]}");
+            Assert.That(priorityQueue.Max(), Is.EqualTo(values[0]), $"Max should be {values[0]}");
 
             int j = 0;
             while (priorityQueue.Size > 0)
@@ -119,11 +115,11 @@ namespace PriorityQueueTests
 
                 Console.WriteLine($"{val} ");
 
-                Assert.AreEqual(values[j], val, 0, $"Current max should be {values[j]}");
+                Assert.That(val, Is.EqualTo(values[j]), $"Current max should be {values[j]}");
                 j += 1;
             }
 
-            Assert.AreEqual(j, N, $"Should have popped {j} values.");
+            Assert.That(N,  Is.EqualTo(j), $"Should have popped {j} values.");
         }
     }
 

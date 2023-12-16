@@ -1,10 +1,8 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using PriorityQueue;
+﻿using PriorityQueue;
 
 namespace PriorityQueueTests
 {
-    [TestClass]
+    [TestFixture]
     public class BinomialHeapTests : MergeablePriorityQueueTests<BinomialHeap<int>>
     {
         public override BinomialHeap<int> CreateMergeableInstance() => new BinomialHeap<int>();

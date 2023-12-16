@@ -1,12 +1,8 @@
-﻿using System;
-using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-
-using PriorityQueue;
+﻿using PriorityQueue;
 
 namespace PriorityQueueTests
 {
-    [TestClass]
+    [TestFixture]
     public abstract class MergeablePriorityQueueTests<TQ> : PriorityQueueTests
         where TQ : IMergeablePriorityQueue<TQ, int>
     {
@@ -16,7 +12,7 @@ namespace PriorityQueueTests
         }
         public abstract TQ CreateMergeableInstance();
 
-        [TestMethod]
+        [Test]
         public void UnionSizeTest()
         {
             var Q1 = CreateMergeableInstance();
@@ -36,7 +32,7 @@ namespace PriorityQueueTests
 
             var Q3 = Q1.Union(Q2);
 
-            Assert.AreEqual(values1.Length + values2.Length, Q3.Size);
+            Assert.That(values1.Length + values2.Length, Is.EqualTo(Q3.Size));
         }
     }
 }
