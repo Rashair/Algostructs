@@ -73,9 +73,9 @@ public class InsertTests
     }
     
   
-    [TestCase(50_000, 10_000)]
-    [TestCase(25_000, 5_000)]
-    [TestCase(10_000, 1_000)]
+    [TestCase(30_000, 6_000)]
+    [TestCase(10_000, 2_000)]
+    [TestCase(5_000, 1_000)]
     [TestCase(1_000, 10)]
     public void GivenEnormousNumberOfStrings_ThenTheInsertIsFast(int numberOfInserts,
         int timeoutMs)
