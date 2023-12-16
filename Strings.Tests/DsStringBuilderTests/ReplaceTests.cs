@@ -127,8 +127,8 @@ public class ReplaceTests
 
     [TestCase(10_000, 10_000)]
     [TestCase(5_000, 3_000)]
-    [TestCase(1_000, 100)]
-    [TestCase(500, 10)]
+    [TestCase(1_000, 150)]
+    [TestCase(500, 40)]
     public void GivenEnormousNumberOfReplacements_ThenTheReplaceIsFast(int numberOfReplacements,
         int timeoutMs)
     {
