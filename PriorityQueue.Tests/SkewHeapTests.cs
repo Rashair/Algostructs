@@ -1,6 +1,4 @@
-﻿using PriorityQueue;
-
-namespace PriorityQueueTests;
+﻿namespace PriorityQueue.Tests;
 
 [TestFixture]
 public class SkewHeapTests : MergeablePriorityQueueTests<SkewHeap<int>>
