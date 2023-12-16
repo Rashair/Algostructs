@@ -1,0 +1,48 @@
+root = true
+
+[*]
+indent_style = space
+end_of_line = crlf
+charset = utf-8
+
+
+[{*.ts, *.js, *.tsx, *.cshtml, *.csproj, *.props}]
+indent_size = 2
+
+# Most frequently used .NET-coding-convention properties are supported
+[*.cs]
+indent_size = 4
+csharp_style_var_for_built_in_types = false:silent
+insert_final_newline = true
+csharp_prefer_braces = true:warning
+resharper_csharp_namespace_body = file_scoped
+dotnet_sort_system_directives_first = true
+
+# JetBrains Rider custom properties for code formatting styles
+resharper_csharp_brace_style = next_line
+resharper_csharp_blank_lines_around_invocable = 1
+
+# JetBrains Rider custom properties for code syntax styles
+resharper_csharp_default_private_modifier = explicit
+
+# JetBrains Rider custom properties for code inspections
+resharper_possible_null_reference_exception_highlighting = error
+resharper_replace_with_string_is_null_or_empty_highlighting = warning
+
+# Curly braces
+resharper_space_within_empty_braces = false
+resharper_space_before_singleline_accessorholder = true
+resharper_space_in_singleline_accessorholder = true
+resharper_space_between_accessors_in_singleline_property = true
+resharper_space_in_singleline_method = true
+resharper_space_in_singleline_anonymous_method = true
+resharper_space_within_single_line_array_initializer_braces = true
+
+dotnet_naming_style.pascal_case.capitalization = pascal_case
+dotnet_naming_rule.constant_fields_should_be_pascal_case.style = pascal_case
+dotnet_naming_rule.constant_fields_should_be_pascal_case.severity = warning
+dotnet_naming_rule.constant_fields_should_be_pascal_case.symbols = methods
+
+dotnet_naming_symbols.methods.applicable_kinds            = method
+dotnet_naming_symbols.methods.applicable_accessibilities  = *
+
