@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace PriorityQueue
+﻿namespace PriorityQueue
 {
 
     public interface IPriorityQueue<T>
