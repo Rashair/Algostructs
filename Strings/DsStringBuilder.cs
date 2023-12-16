@@ -25,7 +25,7 @@ public class DsStringBuilder
 
     public void Insert(int index, string str)
     {
-        _values.InsertRange(index, str);
+        _values.InsertRange(index, str.AsSpan());
     }
 
     public void Remove(int startIndex, int length)
@@ -65,6 +65,7 @@ public class DsStringBuilder
         int indexShift = 0;
         foreach (var ind in indexes)
         {
+            // TODO: Optimize
             _values.RemoveRange(ind + indexShift, pattern.Length);
             _values.InsertRange(ind + indexShift, replacement);
             indexShift += replacement.Length - pattern.Length;
