@@ -1,10 +1,9 @@
 ﻿using PriorityQueue;
 
-namespace PriorityQueueTests
+namespace PriorityQueueTests;
+
+[TestFixture]
+public class BinomialHeapTests : MergeablePriorityQueueTests<BinomialHeap<int>>
 {
-    [TestFixture]
-    public class BinomialHeapTests : MergeablePriorityQueueTests<BinomialHeap<int>>
-    {
-        public override BinomialHeap<int> CreateMergeableInstance() => new BinomialHeap<int>();
-    }
+    protected override BinomialHeap<int> CreateMergeableInstance() => new BinomialHeap<int>();
 }
