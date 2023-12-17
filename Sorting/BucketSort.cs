@@ -33,13 +33,12 @@ public class BucketSort<T> : ISort<T>
 
         for (int i = 0; i < values.Count; ++i)
         {
-            var bucketIndex = (int) ((_keyConverter(values[i]) - min) / ((max + 1 - min) / (double)bucketSize));
+            var bucketIndex = (int) ((_keyConverter(values[i]) - min) / ((max + 1 - min) / (double) bucketSize));
             buckets[bucketIndex].Add(values[i]);
         }
 
         for (int b = 0; b < bucketSize; ++b)
         {
-            // TODO: Replace with own algorithm
             buckets[b].Sort();
         }
 
@@ -89,7 +88,7 @@ public class BucketSort<T> : ISort<T>
         }
         else
         {
-           result = diff / sqrtLen;
+            result = diff / sqrtLen;
         }
 
         return (int) Math.Ceiling(result);
