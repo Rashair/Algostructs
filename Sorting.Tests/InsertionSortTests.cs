@@ -2,16 +2,16 @@
 
 [TestFixture]
 [TestOf(typeof(BucketSort<>))]
-public class BucketSortTests : SortingTests
+public class InsertionSortTests : SortingTests
 {
     protected override ISort<int> InitSort()
     {
-        return new BucketSort<int>(c => c);
+        return new InsertionSort<int>(c => c);
     }
 
-    [TestCase(10_000, 50)]
-    [TestCase(100_000, 100)]
-    [TestCase(10_000_000, 4_000)]
+    [TestCase(10_000, 300)]
+    [TestCase(25_000, 2_000)]
+    [TestCase(75_000, 15_000)]
     public override void Performance(int size, int timeLimit)
     {
         base.Performance(size, timeLimit);
