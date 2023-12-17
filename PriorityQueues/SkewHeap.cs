@@ -81,7 +81,6 @@ public class SkewHeap<T> : IMergeablePriorityQueue<SkewHeap<T>, T>
     private class Node : IComparable<Node>
     {
         public T Key;
-
         public Node Left, Right;
 
         public Node(T val)

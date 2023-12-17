@@ -34,6 +34,7 @@ public class LeftistHeap<T> : IMergeablePriorityQueue<LeftistHeap<T>, T>
         _root = Union(_root, new Node(val));
         Size += 1;
     }
+
     public T Max()
     {
         if (Size == 0)

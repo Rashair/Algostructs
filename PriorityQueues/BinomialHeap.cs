@@ -131,6 +131,7 @@ public class BinomialHeap<T> : IMergeablePriorityQueue<BinomialHeap<T>, T>
 
         return Union(node3, tree3);
     }
+
     private static Node MergeTrees(Node node1, Node node2) // Both equal ranks and not null
     {
         if (node1.CompareTo(node2) < 0)
@@ -155,6 +156,7 @@ public class BinomialHeap<T> : IMergeablePriorityQueue<BinomialHeap<T>, T>
 
         return newRoot;
     }
+
     private static Node Extract(ref Node node)
     {
         var nodeNext = node.Next;

@@ -35,6 +35,7 @@ public class Heap<T> : IPriorityQueue<T>
 
         Delete(0);
     }
+
     public T Max()
     {
         if (Size == 0)
@@ -44,6 +45,7 @@ public class Heap<T> : IPriorityQueue<T>
 
         return _values[0];
     }
+
     public void Insert(T val)
     {
         _values.Add(val);
@@ -68,6 +70,7 @@ public class Heap<T> : IPriorityQueue<T>
             i = (i - 1) / 2;
         }
     }
+
     private void DownHeap(int i)
     {
         i = 2 * i + 1;

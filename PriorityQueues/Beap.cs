@@ -56,6 +56,7 @@ public class Beap<T> : IPriorityQueue<T>
 
         UpBeap();
     }
+
     public T Max()
     {
         if (Size == 0)
