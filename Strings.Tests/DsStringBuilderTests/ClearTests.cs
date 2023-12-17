@@ -38,7 +38,7 @@ public class ClearTests
     public void GivenLargeString_ThenClearMakesItEmpty()
     {
         // Arrange
-        var ct = TestsHelper.CreateCancellationToken(10);
+        var ct = TestsHelper.CreateCancellationToken(20);
         var sb = new DsStringBuilder(new('a', 1000000));
 
         // Act

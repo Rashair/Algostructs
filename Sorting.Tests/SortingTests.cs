@@ -69,18 +69,57 @@ public abstract class SortingTests
         Assert.That(input, Is.EqualTo(sortedInput));
     }
 
-    [Test]
-    public void MultipleSimilarElements()
+    [TestCase(true)]
+    [TestCase(false)]
+    public void MultipleElementsOfSameValue(bool randomOrder)
     {
         // Arrange
-        var input = Enumerable.Repeat(-1, 1_500)
+        var inputBuilder = Enumerable.Repeat(-1, 1_500)
             .Concat(Enumerable.Repeat(15, 1_200))
-            .Concat(Enumerable.Repeat(-1, 1_300))
+            .Concat(Enumerable.Repeat(1, 1_300))
             .Concat(Enumerable.Repeat(int.MinValue, 104))
             .Concat(Enumerable.Repeat(int.MaxValue, 105))
-            .Concat(Enumerable.Repeat(1024, 1_00))
-            .OrderBy(r => Random.Next())
-            .ToArray();
+            .Concat(Enumerable.Repeat(1024, 1_00));
+        inputBuilder = randomOrder ? inputBuilder.OrderBy(_ => Random.Next()) : inputBuilder;
+
+        var input = inputBuilder.ToArray();
+        var sort = InitSort();
+
+        // Act
+        var sortedInput = sort.Apply(input.ToArray());
+
+        // Assert
+        Array.Sort(input);
+        Assert.That(input, Is.EqualTo(sortedInput));
+    }
+
+    [TestCase(true)]
+    [TestCase(false)]
+    public void MultipleSimilarElements(bool randomOrder)
+    {
+        // Arrange
+        var inputBuilder = Enumerable.Repeat(-1, 1_500)
+            .Concat(Enumerable.Repeat(0, 1_200))
+            .Concat(Enumerable.Repeat(-1, 1_300))
+            .Concat(Enumerable.Repeat(2, 1_00));
+        inputBuilder = randomOrder ? inputBuilder.OrderBy(_ => Random.Next()) : inputBuilder;
+
+        var input = inputBuilder.ToArray();
+        var sort = InitSort();
+
+        // Act
+        var sortedInput = sort.Apply(input.ToArray());
+
+        // Assert
+        Array.Sort(input);
+        Assert.That(input, Is.EqualTo(sortedInput));
+    }
+
+    [Test]
+    public void OnlyNegative()
+    {
+        // Arrange
+        var input = Enumerable.Range(0, 5_001).Select(_ => -Random.Next()).ToArray();
         var sort = InitSort();
 
         // Act
@@ -121,10 +160,10 @@ public abstract class SortingTests
         Assert.That(input, Is.EqualTo(sortedInput));
     }
 
-    public virtual void Performance(int size, int timeLimitMs)
+    public void Performance(int size, int timeLimitMs, int range = int.MaxValue)
     {
         // Arrange
-        var input = Enumerable.Range(0, size).Select(_ => Random.Next()).ToArray();
+        var input = Enumerable.Range(0, size).Select(_ => Random.Next(range)).Select(s => Random.Next() % 2 == 0 ? s : -s).ToArray();
         var sort = InitSort();
 
         // Act

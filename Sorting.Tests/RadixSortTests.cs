@@ -2,11 +2,11 @@
 
 [TestFixture]
 [TestOf(typeof(BucketSort<>))]
-public class BucketSortTests : SortingTests
+public class RadixSortTests : SortingTests
 {
     protected override ISort<int> InitSort()
     {
-        return new BucketSort<int>(c => c);
+        return new RadixSort<int>(c => c);
     }
 
     [TestCase(10_000, 50)]
