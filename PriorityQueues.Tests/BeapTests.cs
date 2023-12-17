@@ -1,4 +1,4 @@
-﻿namespace PriorityQueue.Tests;
+﻿namespace PriorityQueues.Tests;
 
 [TestFixture]
 public class BeapTests : PriorityQueueTests
@@ -13,8 +13,8 @@ public class BeapTests : PriorityQueueTests
     {
         Assert.Multiple(() =>
         {
-            Assert.That(5, Is.EqualTo(Beap<int>.RowCol2Index(2, 2)));
-            Assert.That((2, 2), Is.EqualTo(Beap<int>.Index2RowCol(5)));
+            Assert.That(Beap<int>.RowCol2Index(2, 2), Is.EqualTo(5));
+            Assert.That(Beap<int>.Index2RowCol(5), Is.EqualTo((2,2)));
         });
     }
 
@@ -24,7 +24,7 @@ public class BeapTests : PriorityQueueTests
         Assert.Multiple(() =>
         {
             Assert.That(Beap<int>.RowCol2Index(2, 1), Is.EqualTo(4));
-            Assert.That((2, 1), Is.EqualTo(Beap<int>.Index2RowCol(4)));
+            Assert.That(Beap<int>.Index2RowCol(4), Is.EqualTo((2, 1)));
         });
     }
 
