@@ -62,13 +62,18 @@ public class DsStringBuilder
             _values.EnsureCapacity(_values.Count + (replacement.Length - pattern.Length) * indexes.Count);
         }
 
+        ReplaceAllPattern(indexes, pattern.Length, replacement);
+    }
+
+    private void ReplaceAllPattern(List<int> indexes, int patternLen, string replacement)
+    {
         int indexShift = 0;
-        foreach (var ind in indexes)
+        foreach (int patternIndex in indexes)
         {
-            // TODO: Optimize
-            _values.RemoveRange(ind + indexShift, pattern.Length);
-            _values.InsertRange(ind + indexShift, replacement);
-            indexShift += replacement.Length - pattern.Length;
+            var currentPatternInd = patternIndex + indexShift;
+            _values.RemoveRange(currentPatternInd, patternLen);
+            _values.InsertRange(currentPatternInd, replacement.AsSpan());
+            indexShift += replacement.Length - patternLen;
         }
     }
 

@@ -1,5 +1,4 @@
-﻿using System.Text;
-using Tests.Common;
+﻿using Tests.Common;
 
 namespace Strings.Tests.DsStringBuilderTests;
 
