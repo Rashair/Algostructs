@@ -1,6 +1,4 @@
-﻿using System.Numerics;
-
-namespace Sorting;
+﻿namespace Sorting;
 
 public class BucketSort<T> : ISort<T>
 {
@@ -33,7 +31,7 @@ public class BucketSort<T> : ISort<T>
 
         for (int i = 0; i < values.Count; ++i)
         {
-            var bucketIndex = (int) ((_keyConverter(values[i]) - min) / ((max + 1 - min) / (double) bucketSize));
+            var bucketIndex = (ulong) (((long) _keyConverter(values[i]) - min) / ((max + 1L - min) / (double) bucketSize));
             buckets[bucketIndex].Add(values[i]);
         }
 
@@ -78,13 +76,13 @@ public class BucketSort<T> : ISort<T>
 
     private int GetBucketSize(int min, int max, int valuesLen)
     {
-        var diff = max - min;
+        var diff = (long) max - min;
         var sqrtLen = Math.Sqrt(valuesLen);
         double result;
         if (diff > valuesLen) // if the range is too big, just use Sqrt
         {
             // TODO: How to optimise?
-            result = valuesLen > 1_048_576 ? BitOperations.Log2((uint) valuesLen) : sqrtLen;
+            result = sqrtLen;
         }
         else
         {
