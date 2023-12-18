@@ -1,23 +1,31 @@
 ﻿namespace Sorting;
 
-public class QuickSort<T> : ISort<T>
+public class QuickSort<T> : ISortLowHigh<T>
 {
+    private const int AlternativeSortThreshold = 16;
+    private readonly ISortLowHigh<T> _alternativeSortingAlgorithm;
     private readonly Func<T, int> _keyConverter;
 
     public QuickSort(Func<T, int> keyConverter)
     {
         _keyConverter = keyConverter;
+        _alternativeSortingAlgorithm = new InsertionSort<T>(_keyConverter);
     }
 
     public IList<T> Apply(IList<T> values)
     {
-        InternalSort(values, 0, values.Count - 1);
+        Apply(values, 0, values.Count - 1);
 
         return values;
     }
 
-    private void InternalSort(IList<T> values, int low, int high)
+    public IList<T> Apply(IList<T> values, int low, int high)
     {
+        if (high - low <= AlternativeSortThreshold)
+        {
+            return _alternativeSortingAlgorithm.Apply(values, low, high);
+        }
+
         while (low < high)
         {
             int medianIndex = MedianOf3Pivots(values, low, (low + high) / 2, high);
@@ -26,15 +34,17 @@ public class QuickSort<T> : ISort<T>
 
             if (pivotIndex - low < high - pivotIndex)
             {
-                InternalSort(values, low, pivotIndex - 1);
+                Apply(values, low, pivotIndex - 1);
                 low = pivotIndex + 1;
             }
             else
             {
-                InternalSort(values, pivotIndex + 1, high);
+                Apply(values, pivotIndex + 1, high);
                 high = pivotIndex - 1;
             }
         }
+
+        return values;
     }
 
     private int MedianOf3Pivots(IList<T> values, int a, int b, int c)

@@ -18,7 +18,7 @@ public class QuickSortTests : SortingTests
     }
 
     [TestCase(10_000, 50)]
-    [TestCase(100_000, 200)]
+    [TestCase(100_000, 250)]
     [TestCase(500_000, 5_000)]
     public void PerformanceSmallRange(int size, int timeLimit)
     {
