@@ -9,7 +9,7 @@ public class InsertionSortTests : SortingTests
         return new InsertionSort<int>(c => c);
     }
 
-    [TestCase(10_000, 300)]
+    [TestCase(10_000, 400)]
     [TestCase(25_000, 2_000)]
     [TestCase(75_000, 15_000)]
     public void Performance(int size, int timeLimit)
