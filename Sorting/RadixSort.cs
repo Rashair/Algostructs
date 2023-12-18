@@ -85,6 +85,10 @@ public class RadixSort<T> : ISort<T>
             digitsCount[k] += digitsCount[k - 1];
         }
 
+        // Key here for stability is that we're starting from the end of the array,
+        // Two equal values will always be placed in the original order, because last will stay last.
+        // Because the algorithm is stable, already sorted number will stay in the same order
+        //  and we will reorder only by the next (more significant) digit
         for (int i = values.Length - 1; i >= 0; --i)
         {
             var index = (byte) (keyConverter(values[i]) / exp % Base);
