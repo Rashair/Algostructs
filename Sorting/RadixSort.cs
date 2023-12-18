@@ -2,7 +2,7 @@
 
 public class RadixSort<T> : ISort<T>
 {
-    private const int Base = 10;
+    private const int Base = 256;
     private readonly Func<T, int> _keyConverter;
 
     public RadixSort(Func<T, int> keyConverter)
@@ -11,6 +11,28 @@ public class RadixSort<T> : ISort<T>
     }
 
     public IList<T> Apply(IList<T> values)
+    {
+        var (positives, negatives) = GetNegativesAndPositives(values);
+
+        var resNegatives = InternalSort(negatives, (T t) => -(long) _keyConverter(t));
+        int valuesIter = 0;
+        for (int i = resNegatives.Length - 1; i >= 0; --i)
+        {
+            values[valuesIter] = resNegatives[i];
+            ++valuesIter;
+        }
+
+        var resPositives = InternalSort(positives, (T t) => _keyConverter(t));
+        for (int i = 0; i < resPositives.Length; ++i)
+        {
+            values[valuesIter] = resPositives[i];
+            ++valuesIter;
+        }
+
+        return values;
+    }
+
+    private (T[] positives, T[] negatives) GetNegativesAndPositives(IList<T> values)
     {
         var positives = new List<T>(values.Count / 2);
         var negatives = new List<T>(values.Count / 2);
@@ -26,38 +48,21 @@ public class RadixSort<T> : ISort<T>
             }
         }
 
-        InternalSort(positives, (T t) => _keyConverter(t));
-
-        InternalSort(negatives, (T t) => -(long) _keyConverter(t));
-
-        int valuesIter = 0;
-        for (int i = negatives.Count - 1; i >= 0; --i)
-        {
-            values[valuesIter] = negatives[i];
-            ++valuesIter;
-        }
-
-        for (int i = 0; i < positives.Count; ++i)
-        {
-            values[valuesIter] = positives[i];
-            ++valuesIter;
-        }
-
-        return values;
+        return (positives.ToArray(), negatives.ToArray());
     }
 
     /// <summary>
     /// Uses long to allow int.MinValue
     /// </summary>
-    private static IList<T> InternalSort(IList<T> values, Func<T, long> keyConverter)
+    private static T[] InternalSort(T[] values, Func<T, long> keyConverter)
     {
-        if (values.Count == 0)
+        if (values.Length == 0)
         {
             return values;
         }
 
         var maxVal = values.Max(keyConverter);
-        var temp = new T[values.Count];
+        var temp = new T[values.Length];
         for (long exp = 1; maxVal / exp > 0; exp *= Base)
         {
             CountingSortByDigit(values, keyConverter, exp, temp);
@@ -66,12 +71,12 @@ public class RadixSort<T> : ISort<T>
         return values;
     }
 
-    private static void CountingSortByDigit(IList<T> values, Func<T, long> keyConverter, long exp, T[] temp)
+    private static void CountingSortByDigit(T[] values, Func<T, long> keyConverter, long exp, T[] temp)
     {
         var digitsCount = new int[Base];
-        for (int i = 0; i < values.Count; ++i)
+        for (int i = 0; i < values.Length; ++i)
         {
-            var digit = keyConverter(values[i]) / exp % Base;
+            var digit = (byte) (keyConverter(values[i]) / exp % Base);
             ++digitsCount[digit];
         }
 
@@ -80,16 +85,13 @@ public class RadixSort<T> : ISort<T>
             digitsCount[k] += digitsCount[k - 1];
         }
 
-        for (int i = values.Count - 1; i >= 0; --i)
+        for (int i = values.Length - 1; i >= 0; --i)
         {
-            var index = keyConverter(values[i]) / exp % Base;
+            var index = (byte) (keyConverter(values[i]) / exp % Base);
             temp[digitsCount[index] - 1] = values[i];
             --digitsCount[index];
         }
 
-        for (int i = 0; i < values.Count; ++i)
-        {
-            values[i] = temp[i];
-        }
+        Array.Copy(temp, values, values.Length);
     }
 }
