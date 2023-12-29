@@ -89,6 +89,19 @@ public class MultiStackTests
     }
 
     [Test]
+    public void Push_Pop_Reverse_MultipleStacks_BehavesCorrectly()
+    {
+        var multiStack = new MultiStack<int>(3);
+        multiStack.Push(2, 10);
+        multiStack.Push(1, 20);
+        multiStack.Push(0, 30);
+
+        Assert.That(multiStack.Pop(0), Is.EqualTo(30));
+        Assert.That(multiStack.Pop(1), Is.EqualTo(20));
+        Assert.That(multiStack.Pop(2), Is.EqualTo(10));
+    }
+
+    [Test]
     public void IsEmpty_AfterPushPop_ReturnsTrue()
     {
         var multiStack = new MultiStack<int>(1);

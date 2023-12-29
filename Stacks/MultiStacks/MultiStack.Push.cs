@@ -1,4 +1,6 @@
-﻿namespace Stacks.MultiStacks;
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace Stacks.MultiStacks;
 
 public partial class MultiStack<T>
 {
@@ -32,27 +34,42 @@ public partial class MultiStack<T>
         _stacks[stackNum].Capacity += capacityInc;
         _values = newValues;
 
-        var nextLast = GetNextStackLast(stackNum);
-        if (nextLast != null)
+        var nextStack = GetNextNonEmptyStack(stackNum);
+        if (nextStack != null)
         {
-            // Shift next stacks to the right
-            Array.Copy(newValues, nextLast.Value,
-                newValues, nextLast.Value + capacityInc,
-                newValues.Length - nextLast.Value);
+            ShiftStacks(newValues, nextStack, capacityInc);
         }
     }
 
-    private int? GetNextStackLast(int stackNum)
+    private int? GetNextNonEmptyStack(int stackNum)
     {
         for (int i = stackNum + 1; i < _stacks.Length; ++i)
         {
-            if (_stacks[i].Size > 0)
+            if (!IsEmpty(i))
             {
-                return _stacks[i].Last;
+                return i;
             }
         }
 
         return null;
+    }
+
+    private void ShiftStacks(T[] newValues, [DisallowNull] int? nextStack, int capacityInc)
+    {
+        var nextLast = _stacks[nextStack.Value].Last;
+
+        // Shift values to the right
+        Array.Copy(newValues, nextLast,
+            newValues, nextLast + capacityInc,
+            newValues.Length - nextLast - 1);
+
+        for (int i = nextStack.Value; i < _stacks.Length; ++i)
+        {
+            if (_stacks[i].Size > 0)
+            {
+                _stacks[i].First += capacityInc;
+            }
+        }
     }
 
     private int GetSubsequentFirst(int stackNum)
@@ -63,12 +80,12 @@ public partial class MultiStack<T>
             return st.First + 1;
         }
 
-        for (int stackIter = stackNum - 1; stackIter >= 0; --stackIter)
+        for (int iter = stackNum - 1; iter >= 0; --iter)
         {
-            if (_stacks[stackNum].Size > 0)
+            if (_stacks[iter].Size > 0)
             {
                 // +1 included in capacity
-                return _stacks[stackNum].Last + _stacks[stackNum].Capacity;
+                return _stacks[iter].Last + _stacks[iter].Capacity;
             }
         }
 
