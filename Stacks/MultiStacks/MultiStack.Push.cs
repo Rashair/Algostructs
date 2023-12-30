@@ -61,7 +61,8 @@ public partial class MultiStack<T>
         // Shift values to the right
         Array.Copy(newValues, nextLast,
             newValues, nextLast + capacityInc,
-            newValues.Length - nextLast - 1);
+            // Old values length - nextLast
+            newValues.Length - nextLast - capacityInc);
 
         for (int i = nextStack.Value; i < _stacks.Length; ++i)
         {
