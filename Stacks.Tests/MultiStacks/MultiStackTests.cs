@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using NUnit.Framework;
 using Stacks.MultiStacks;
 
@@ -7,6 +8,8 @@ namespace Stacks.Tests.MultiStacks;
 [TestFixture]
 public class MultiStackTests
 {
+    private readonly Random _random = new(21434);
+
     [Test]
     public void Constructor_WithPositiveStackNum_InitializesCorrectly()
     {
@@ -133,5 +136,92 @@ public class MultiStackTests
     public void Constructor_NegativeStackNum_ThrowsArgumentOutOfRangeException()
     {
         Assert.Throws<ArgumentOutOfRangeException>(() => new MultiStack<int>(-1));
+    }
+
+    [Test]
+    public void AreAllStacksEmpty_WithNonEmptyStacks_ReturnsFalse()
+    {
+        var multiStack = new MultiStack<int>(2);
+        multiStack.Push(0, 10);
+
+        Assert.That(multiStack.AreAllStacksEmpty(), Is.False);
+    }
+
+    [Test]
+    public void IsEmpty_NonDefaultStack_ReturnsCorrectValue()
+    {
+        var multiStack = new MultiStack<int>(2);
+        multiStack.Push(1, 20);
+
+        Assert.That(multiStack.IsEmpty(0), Is.True);
+        Assert.That(multiStack.IsEmpty(1), Is.False);
+    }
+
+    [Test]
+    public void Push_OnFullStack_ThrowsExceptionOrHandlesGracefully()
+    {
+        // Assuming the capacity is set and known. Implement the test accordingly.
+    }
+
+    [Test]
+    public void Pop_SpecificStack_ReturnsCorrectValue()
+    {
+        var multiStack = new MultiStack<int>(2);
+        multiStack.Push(1, 20);
+
+        Assert.That(multiStack.Pop(1), Is.EqualTo(20));
+    }
+
+    [Test]
+    public void Peek_SpecificStack_ReturnsTopElement()
+    {
+        var multiStack = new MultiStack<int>(2);
+        multiStack.Push(1, 30);
+        multiStack.Push(1, 40);
+
+        Assert.That(multiStack.Peek(1), Is.EqualTo(40));
+    }
+
+    [Test]
+    public void ValidateStackNum_OutOfRange_ThrowsArgumentOutOfRangeException()
+    {
+        var multiStack = new MultiStack<int>(2);
+
+        Assert.Throws<ArgumentOutOfRangeException>(() => multiStack.IsEmpty(3));
+    }
+
+    [TestCase(4, 10)]
+    [TestCase(3, 100)]
+    [TestCase(3, 100_000)]
+    [TestCase(27, 100_000)]
+    [TestCase(16, 100_000)]
+    [TestCase(99, 1_000_000)]
+    public void Push_Peek_Pop_Random_Test(int stacksNum, int countToPush)
+    {
+        var multiStack = new MultiStack<int>(stacksNum);
+
+        var values = new Dictionary<int, List<int>>();
+        for (int i = 0; i < countToPush; ++i)
+        {
+            var stackNum = _random.Next(0, stacksNum);
+            var value = _random.Next(0, 1_000);
+            multiStack.Push(stackNum, value);
+            Assert.That(multiStack.Peek(stackNum), Is.EqualTo(value));
+
+            values.TryAdd(stackNum, []);
+            values[stackNum].Add(value);
+        }
+
+        for (int i = 0; i < stacksNum; ++i)
+        {
+            var stackNum = _random.Next(0, stacksNum);
+            var valuesForStack = values[stackNum];
+            int k = valuesForStack.Count - 1;
+            while (!multiStack.IsEmpty(stackNum))
+            {
+                Assert.That(multiStack.Pop(stackNum), Is.EqualTo(valuesForStack[k]));
+                --k;
+            }
+        }
     }
 }
