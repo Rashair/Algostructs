@@ -10,11 +10,16 @@ public class MultiStackTests
 {
     private readonly Random _random = new(21434);
 
+    private static MultiStack<int> CreateStack(int stacksNum)
+    {
+        return new(stacksNum);
+    }
+    
     [Test]
     public void Constructor_WithPositiveStackNum_InitializesCorrectly()
     {
         var stacksNum = 3;
-        var multiStack = new MultiStack<int>(stacksNum);
+        var multiStack = CreateStack(stacksNum);
 
         Assert.That(multiStack, Is.Not.Null);
         Assert.That(multiStack.AreAllStacksEmpty(), Is.True);
@@ -23,7 +28,7 @@ public class MultiStackTests
     [Test]
     public void Push_Pop_SingleStack_BehavesCorrectly()
     {
-        var multiStack = new MultiStack<int>(1);
+        var multiStack = CreateStack(1);
         var value = 5;
 
         multiStack.Push(value);
@@ -38,7 +43,7 @@ public class MultiStackTests
     [Test]
     public void Push_InvalidStackNum_ThrowsArgumentOutOfRangeException()
     {
-        var multiStack = new MultiStack<int>(1);
+        var multiStack = CreateStack(1);
         var invalidStackNum = 2;
         var value = 5;
 
@@ -49,7 +54,7 @@ public class MultiStackTests
     [Test]
     public void Pop_EmptyStack_ThrowsInvalidOperationException()
     {
-        var multiStack = new MultiStack<int>(1);
+        var multiStack = CreateStack(1);
 
         Assert.Throws<InvalidOperationException>(() => multiStack.Pop());
     }
@@ -57,7 +62,7 @@ public class MultiStackTests
     [Test]
     public void Peek_EmptyStack_ThrowsInvalidOperationException()
     {
-        var multiStack = new MultiStack<int>(1);
+        var multiStack = CreateStack(1);
 
         Assert.Throws<InvalidOperationException>(() => multiStack.Peek());
     }
@@ -65,7 +70,7 @@ public class MultiStackTests
     [Test]
     public void AreAllStacksEmpty_Initially_ReturnsTrue()
     {
-        var multiStack = new MultiStack<int>(3);
+        var multiStack = CreateStack(3);
 
         Assert.That(multiStack.AreAllStacksEmpty(), Is.True);
     }
@@ -73,7 +78,7 @@ public class MultiStackTests
     [Test]
     public void IsEmpty_SpecificStack_Initially_ReturnsTrue()
     {
-        var multiStack = new MultiStack<int>(3);
+        var multiStack = CreateStack(3);
 
         Assert.That(multiStack.IsEmpty(1), Is.True);
     }
@@ -81,7 +86,7 @@ public class MultiStackTests
     [Test]
     public void Push_Pop_MultipleStacks_BehavesCorrectly()
     {
-        var multiStack = new MultiStack<int>(3);
+        var multiStack = CreateStack(3);
         multiStack.Push(0, 10);
         multiStack.Push(1, 20);
         multiStack.Push(2, 30);
@@ -94,7 +99,7 @@ public class MultiStackTests
     [Test]
     public void Push_Pop_Reverse_MultipleStacks_BehavesCorrectly()
     {
-        var multiStack = new MultiStack<int>(3);
+        var multiStack = CreateStack(3);
         multiStack.Push(2, 10);
         multiStack.Push(1, 20);
         multiStack.Push(0, 30);
@@ -107,7 +112,7 @@ public class MultiStackTests
     [Test]
     public void IsEmpty_AfterPushPop_ReturnsTrue()
     {
-        var multiStack = new MultiStack<int>(1);
+        var multiStack = CreateStack(1);
         multiStack.Push(10);
         multiStack.Pop();
 
@@ -117,7 +122,7 @@ public class MultiStackTests
     [Test]
     public void Peek_AfterMultiplePush_ReturnsLastElement()
     {
-        var multiStack = new MultiStack<int>(1);
+        var multiStack = CreateStack(1);
         multiStack.Push(10);
         multiStack.Push(20);
 
@@ -127,7 +132,7 @@ public class MultiStackTests
     [Test]
     public void ValidateStackNum_InvalidStackNum_ThrowsArgumentOutOfRangeException()
     {
-        var multiStack = new MultiStack<int>(2);
+        var multiStack = CreateStack(2);
 
         Assert.Throws<ArgumentOutOfRangeException>(() => multiStack.IsEmpty(3));
     }
@@ -135,13 +140,13 @@ public class MultiStackTests
     [Test]
     public void Constructor_NegativeStackNum_ThrowsArgumentOutOfRangeException()
     {
-        Assert.Throws<ArgumentOutOfRangeException>(() => new MultiStack<int>(-1));
+        Assert.Throws<ArgumentOutOfRangeException>(() => CreateStack(-1));
     }
 
     [Test]
     public void AreAllStacksEmpty_WithNonEmptyStacks_ReturnsFalse()
     {
-        var multiStack = new MultiStack<int>(2);
+        var multiStack = CreateStack(2);
         multiStack.Push(0, 10);
 
         Assert.That(multiStack.AreAllStacksEmpty(), Is.False);
@@ -150,7 +155,7 @@ public class MultiStackTests
     [Test]
     public void IsEmpty_NonDefaultStack_ReturnsCorrectValue()
     {
-        var multiStack = new MultiStack<int>(2);
+        var multiStack = CreateStack(2);
         multiStack.Push(1, 20);
 
         Assert.That(multiStack.IsEmpty(0), Is.True);
@@ -166,7 +171,7 @@ public class MultiStackTests
     [Test]
     public void Pop_SpecificStack_ReturnsCorrectValue()
     {
-        var multiStack = new MultiStack<int>(2);
+        var multiStack = CreateStack(2);
         multiStack.Push(1, 20);
 
         Assert.That(multiStack.Pop(1), Is.EqualTo(20));
@@ -175,7 +180,7 @@ public class MultiStackTests
     [Test]
     public void Peek_SpecificStack_ReturnsTopElement()
     {
-        var multiStack = new MultiStack<int>(2);
+        var multiStack = CreateStack(2);
         multiStack.Push(1, 30);
         multiStack.Push(1, 40);
 
@@ -185,7 +190,7 @@ public class MultiStackTests
     [Test]
     public void ValidateStackNum_OutOfRange_ThrowsArgumentOutOfRangeException()
     {
-        var multiStack = new MultiStack<int>(2);
+        var multiStack = CreateStack(2);
 
         Assert.Throws<ArgumentOutOfRangeException>(() => multiStack.IsEmpty(3));
     }
@@ -198,7 +203,7 @@ public class MultiStackTests
     [TestCase(99, 1_000_000)]
     public void Push_Peek_Pop_Random_Test(int stacksNum, int countToPush)
     {
-        var multiStack = new MultiStack<int>(stacksNum);
+        var multiStack = CreateStack(stacksNum);
 
         var values = new Dictionary<int, List<int>>();
         for (int i = 0; i < countToPush; ++i)
