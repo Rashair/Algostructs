@@ -8,6 +8,14 @@ Executor.RunUntilError(() =>
 {
     Console.Write("N: ");
     var input = int.Parse(Console.ReadLine()!);
+    Console.WriteLine(CoinsCounter.GetNumberOfWays(input));
+});
+
+
+Executor.RunUntilError(() =>
+{
+    Console.Write("N: ");
+    var input = int.Parse(Console.ReadLine()!);
     ParensGenerator.PrintAllPossibleParens(input);
 });
 
