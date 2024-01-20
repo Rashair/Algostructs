@@ -11,7 +11,7 @@ public static class CoinsCounter
 
         int[] coins = [25, 10, 5, 1];
         int[,] memoizedResults = new int[coins.Length, cents + 1];
-        memoizedResults[0, 0] = memoizedResults[0, 1] = 1;
+        memoizedResults[0, 0] = 1;
 
         return GetNumberOfWays(memoizedResults, cents, coins, 0);
     }
