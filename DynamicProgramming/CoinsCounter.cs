@@ -10,9 +10,14 @@ public static class CoinsCounter
         }
 
         int[] coins = [25, 10, 5, 1];
+
+        return GetNumberOfWaysIterative(cents, coins);
+    }
+
+    private static int GetNumberOfWaysRecursive(int cents, int[] coins)
+    {
         int[,] memoizedResults = new int[coins.Length, cents + 1];
         memoizedResults[0, 0] = 1;
-
         return GetNumberOfWays(memoizedResults, cents, coins, 0);
     }
 
@@ -48,5 +53,21 @@ public static class CoinsCounter
         memoizedResults[i, cents] = result;
 
         return result;
+    }
+
+    private static int GetNumberOfWaysIterative(int cents, int[] coins)
+    {
+        var ways = new int[cents + 1];
+        ways[0] = 1;
+
+        foreach (var coin in coins)
+        {
+            for (int i = coin; i <= cents; ++i)
+            {
+                ways[i] += ways[i - coin];
+            }
+        }
+
+        return ways[cents];
     }
 }
