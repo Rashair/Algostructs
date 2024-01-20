@@ -8,16 +8,21 @@ Executor.RunUntilError(() =>
 {
     Console.Write("N: ");
     var input = int.Parse(Console.ReadLine()!);
-    Console.WriteLine(CoinsCounter.GetNumberOfWays(input));
+    int ways = 0;
+    Executor.MeasureRuntime(() =>
+    {
+        ways = CoinsCounter.GetNumberOfWays(input);
+    });
+    Console.WriteLine(ways);
 });
 
 
-Executor.RunUntilError(() =>
-{
-    Console.Write("N: ");
-    var input = int.Parse(Console.ReadLine()!);
-    ParensGenerator.PrintAllPossibleParens(input);
-});
+// Executor.RunUntilError(() =>
+// {
+//     Console.Write("N: ");
+//     var input = int.Parse(Console.ReadLine()!);
+//     ParensGenerator.PrintAllPossibleParens(input);
+// });
 
 
 

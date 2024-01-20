@@ -1,4 +1,6 @@
-﻿namespace AlgoEntry;
+﻿using System.Diagnostics;
+
+namespace AlgoEntry;
 
 public class Executor
 {
@@ -11,10 +13,16 @@ public class Executor
                 action();
             }
         }
-        catch
+        catch (Exception ex)
         {
-            Console.WriteLine("Exited.");
-            // do nothing
+            Console.WriteLine("Exited: " + ex.Message);
         }
+    }
+
+    public static void MeasureRuntime(Action action)
+    {
+        var st = Stopwatch.StartNew();
+        action();
+        Console.WriteLine($"Took {st.ElapsedMilliseconds}ms");
     }
 }
