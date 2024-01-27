@@ -13,17 +13,23 @@ public class ExternalMergeSort : IExternalSort
 
     public void Apply(string filePath)
     {
-        var numbersBatch = new List<long>(NumbersLimit);
-
-        var chunksNum = GenerateSortedChunks(filePath, numbersBatch);
-
-        MergeSortedChunks(chunksNum);
-        MoveChunkToFile(0, filePath);
+        try
+        {
+            var numbersBatch = new List<long>(NumbersLimit);
+            var chunksNum = GenerateSortedChunks(filePath, numbersBatch);
+            MergeSortedChunks(chunksNum);
+            MoveChunkToFile(0, filePath);
+        }
+        catch (Exception)
+        {
+            CleanUpChunks();
+            throw;
+        }
     }
 
-    private static long GenerateSortedChunks(string filePath, List<long> numbersBatch)
+    private static int GenerateSortedChunks(string filePath, List<long> numbersBatch)
     {
-        long chunksNum = 0;
+        int chunksNum = 0;
         long? number;
         using var numbersReader = new NumbersReader(filePath);
         while ((number = numbersReader.Read()) != null)
@@ -68,25 +74,27 @@ public class ExternalMergeSort : IExternalSort
 
     private static string GetChunkFileName(long chunkNum) => $"chunk-{chunkNum}.txt";
 
-    private void MergeSortedChunks(long chunksNum)
+    private static void MergeSortedChunks(int chunksNum)
     {
-        int chunksIter = 0;
         while (chunksNum > 1)
         {
-            if (chunksIter == chunksNum - 1) // uneven chunks num
+            Parallel.ForEach(GetChunksRange(chunksNum), range => { MergeChunks(range.chunkA, range.chunkB, range.chunkA / 2); });
+
+            if (chunksNum % 2 == 1) // uneven chunks num
             {
-                MoveChunkToFile(chunksIter, GetChunkFileName(chunksIter / 2));
+                var lastChunk = chunksNum - 1;
+                MoveChunkToFile(lastChunk, GetChunkFileName(lastChunk / 2));
             }
 
-            if (chunksIter > chunksNum - 2)
-            {
-                chunksIter = 0;
-                chunksNum /= 2;
-                continue;
-            }
+            chunksNum /= 2;
+        }
+    }
 
-            MergeChunks(chunksIter, chunksIter + 1, chunksIter / 2);
-            chunksIter += 2;
+    private static IEnumerable<(int chunkA, int chunkB)> GetChunksRange(int chunksNum)
+    {
+        for (int i = 0; i < chunksNum - 1; i += 2)
+        {
+            yield return (i, i + 1);
         }
     }
 
@@ -139,6 +147,15 @@ public class ExternalMergeSort : IExternalSort
     {
         File.Delete(filePath);
         File.Move(GetChunkFileName(chunkNum), filePath);
+    }
+
+    private static void CleanUpChunks()
+    {
+        var chunkPattern = GetChunkFileName(123).Replace("123", "*");
+        foreach (var chunkFile in Directory.GetFiles(".", chunkPattern))
+        {
+            File.Delete(chunkFile);
+        }
     }
 }
 
