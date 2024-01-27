@@ -31,20 +31,25 @@ public class ExternalMergeSort : IExternalSort
             numbersBatch.Add(number.Value);
             if (numbersBatch.Count == NumbersLimit)
             {
-                numbersBatch.Sort();
-                WriteChunk(numbersBatch, chunksNum);
-                numbersBatch.Clear();
+                WriteSortedChunk(numbersBatch, chunksNum);
                 ++chunksNum;
             }
         }
 
         if (numbersBatch.Count > 0)
         {
-            numbersBatch.Sort();
-            WriteChunk(numbersBatch, chunksNum);
+            WriteSortedChunk(numbersBatch, chunksNum);
+            ++chunksNum;
         }
 
         return chunksNum;
+    }
+
+    private static void WriteSortedChunk(List<long> chunk, long chunksNum)
+    {
+        chunk.Sort();
+        WriteChunk(chunk, chunksNum);
+        chunk.Clear();
     }
 
     private static void WriteChunk(IList<long> chunk, long chunkNum)
@@ -81,12 +86,14 @@ public class ExternalMergeSort : IExternalSort
             }
 
             MergeChunks(chunksIter, chunksIter + 1, chunksIter / 2);
+            chunksIter += 2;
         }
     }
 
-    private void MergeChunks(int chunkA, int chunkB, int chunkTarget)
+    private static void MergeChunks(int chunkA, int chunkB, int chunkTarget)
     {
-        using var targetWriter = CreatePerformantStreamWriter(GetChunkFileName(chunkTarget));
+        var tempFileName = $"chunk-{chunkTarget}-temp.txt";
+        using var targetWriter = CreatePerformantStreamWriter(tempFileName);
         using var aReader = new NumbersReader(GetChunkFileName(chunkA));
         using var bReader = new NumbersReader(GetChunkFileName(chunkB));
 
@@ -97,6 +104,8 @@ public class ExternalMergeSort : IExternalSort
 
         File.Delete(GetChunkFileName(chunkA));
         File.Delete(GetChunkFileName(chunkB));
+
+        MoveChunkToFile(chunkTarget, tempFileName);
     }
 
     private static void WriteSorted(NumbersReader aReader, NumbersReader bReader, StreamWriter targetWriter)
