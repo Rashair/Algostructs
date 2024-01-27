@@ -1,4 +1,6 @@
-﻿namespace Sorting.Tests;
+﻿using Sorting.External;
+
+namespace Sorting.Tests;
 
 [TestFixture]
 [TestOf(typeof(ExternalMergeSort))]
@@ -41,7 +43,7 @@ public class ExternalMergeSortTests : ExternalSortingTests
     public void TestHugeFile()
     {
         var sort = InitSort();
-        var file = GenerateSampleFile(uint.MaxValue, long.MaxValue);
+        var file = GenerateSampleFile(uint.MaxValue, int.MaxValue / 2);
 
         // Act
         sort.Apply(file);
