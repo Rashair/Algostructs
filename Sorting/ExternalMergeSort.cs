@@ -106,7 +106,7 @@ public class ExternalMergeSort : IExternalSort
         File.Delete(GetChunkFileName(chunkA));
         File.Delete(GetChunkFileName(chunkB));
 
-        MoveChunkToFile(chunkTarget, tempFileName);
+        File.Move(tempFileName, GetChunkFileName(chunkTarget));
     }
 
     private static void WriteSorted(NumbersReader aReader, NumbersReader bReader, StreamWriter targetWriter)
