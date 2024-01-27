@@ -93,14 +93,15 @@ public class ExternalMergeSort : IExternalSort
     private static void MergeChunks(int chunkA, int chunkB, int chunkTarget)
     {
         var tempFileName = $"chunk-{chunkTarget}-temp.txt";
-        using var targetWriter = CreatePerformantStreamWriter(tempFileName);
-        using var aReader = new NumbersReader(GetChunkFileName(chunkA));
-        using var bReader = new NumbersReader(GetChunkFileName(chunkB));
+        using (var targetWriter = CreatePerformantStreamWriter(tempFileName))
+        using (var bReader = new NumbersReader(GetChunkFileName(chunkB)))
+        using (var aReader = new NumbersReader(GetChunkFileName(chunkA)))
+        {
+            WriteSorted(aReader, bReader, targetWriter);
 
-        WriteSorted(aReader, bReader, targetWriter);
-
-        WriteToEnd(aReader, targetWriter);
-        WriteToEnd(bReader, targetWriter);
+            WriteToEnd(aReader, targetWriter);
+            WriteToEnd(bReader, targetWriter);
+        }
 
         File.Delete(GetChunkFileName(chunkA));
         File.Delete(GetChunkFileName(chunkB));
