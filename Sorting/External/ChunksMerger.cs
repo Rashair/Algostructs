@@ -20,6 +20,7 @@ public class ChunksMerger
         {
             Parallel.ForEach(GetChunksRange(chunksIter), TryMergeChunks);
 
+            // TODO: Bug with last chunkk...
             if (chunksIter % 2 == 1) // uneven chunks num
             {
                 var lastChunk = chunksIter - 1;
