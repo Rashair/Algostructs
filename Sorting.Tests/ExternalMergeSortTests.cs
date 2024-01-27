@@ -21,25 +21,14 @@ public class ExternalMergeSortTests : ExternalSortingTests
         AssertSorted(file);
     }
 
-    [Test]
     [Category("LongRunning")]
-    public void Test2ChunkFile()
+    [TestCase(int.MaxValue / 16, Description = "1/16 of int max value")]
+    [TestCase(int.MaxValue / 8, Description = "1/8 of int max value")]
+    [TestCase(int.MaxValue / 4, Description = "1/4 of int max value")]
+    public void TestMediumFile(int count)
     {
         var sort = InitSort();
-        var file = GenerateSampleFile(int.MaxValue / 8);
-
-        // Act
-        sort.Apply(file);
-
-        AssertSorted(file);
-    }
-
-    [Test]
-    [Category("LongRunning")]
-    public void Test4ChunkFile()
-    {
-        var sort = InitSort();
-        var file = GenerateSampleFile(int.MaxValue / 4);
+        var file = GenerateSampleFile(count);
 
         // Act
         sort.Apply(file);
