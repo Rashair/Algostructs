@@ -9,7 +9,7 @@ public interface IExternalSort
 
 public class ExternalMergeSort : IExternalSort
 {
-    private const int NumbersLimit = 128_000_000; // 512M
+    private const int NumbersLimit = 32_000_000; // 128M
 
     public void Apply(string filePath)
     {
