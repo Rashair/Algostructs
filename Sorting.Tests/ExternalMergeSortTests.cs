@@ -20,4 +20,28 @@ public class ExternalMergeSortTests : ExternalSortingTests
 
         AssertSorted(file);
     }
+
+    [Test]
+    public void TestMediumFile()
+    {
+        var sort = InitSort();
+        var file = GenerateSampleFile(int.MaxValue / 4);
+
+        // Act
+        sort.Apply(file);
+
+        AssertSorted(file);
+    }
+
+    [Test]
+    public void TestHugeFile()
+    {
+        var sort = InitSort();
+        var file = GenerateSampleFile(uint.MaxValue, long.MaxValue);
+
+        // Act
+        sort.Apply(file);
+
+        AssertSorted(file);
+    }
 }
