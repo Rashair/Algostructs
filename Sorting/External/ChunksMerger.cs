@@ -20,14 +20,13 @@ public class ChunksMerger
         {
             Parallel.ForEach(GetChunksRange(chunksIter), TryMergeChunks);
 
-            // TODO: Bug with last chunkk...
             if (chunksIter % 2 == 1) // uneven chunks num
             {
                 var lastChunk = chunksIter - 1;
                 MoveChunkToFile(lastChunk, GetChunkFileName(lastChunk / 2));
             }
 
-            chunksIter /= 2;
+            chunksIter = (int)Math.Ceiling(chunksIter / 2.0);
         }
     }
 
