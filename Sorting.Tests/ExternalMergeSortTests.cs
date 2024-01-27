@@ -22,6 +22,7 @@ public class ExternalMergeSortTests : ExternalSortingTests
     }
 
     [Test]
+    [Category("LongRunning")]
     public void TestMediumFile()
     {
         var sort = InitSort();
@@ -34,6 +35,7 @@ public class ExternalMergeSortTests : ExternalSortingTests
     }
 
     [Test]
+    [Category("LongRunning")]
     public void TestHugeFile()
     {
         var sort = InitSort();
