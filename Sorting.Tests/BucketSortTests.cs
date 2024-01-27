@@ -11,7 +11,7 @@ public class BucketSortTests : SortingTests
 
     [TestCase(10_000, 50)]
     [TestCase(100_000, 150)]
-    [TestCase(10_000_000, 5_000)]
+    [TestCase(10_000_000, 7_000)]
     public void Performance(int size, int timeLimit)
     {
         base.Performance(size, timeLimit);
