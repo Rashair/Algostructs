@@ -1,4 +1,4 @@
-﻿namespace Strings.Searchers;
+﻿namespace Searching.Strings;
 
 public class RabinKarpSearcher : ISearcher
 {

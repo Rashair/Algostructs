@@ -1,4 +1,4 @@
-﻿using Strings.Searchers;
+﻿using Searching.Strings;
 
 namespace Strings;
 
