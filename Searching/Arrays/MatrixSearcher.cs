@@ -44,12 +44,7 @@ public class MatrixSearcher
             return midPoint;
         }
 
-        var preMidPointX = midPoint.X - 1;
-        var preMidPointY = midPoint.Y - 1;
-        var postMidPointX = midPoint.X + 1;
-        var postMidPointY = midPoint.Y + 1;
-
-        Point? firstQuadrantResult;
+        // First quadrant is different for both
         if (matrix[midPoint.X, midPoint.Y] > x)
         {
             //  A---------B
@@ -57,17 +52,17 @@ public class MatrixSearcher
             //  |----M----|
             //  |  3 |    |
             //  C---------D
-            var leftUpMidPoint = new Point(preMidPointX, preMidPointY);
-            firstQuadrantResult = BinarySearchInMatrix(matrix, a, new(b.X, leftUpMidPoint.Y), new(leftUpMidPoint.X, c.Y),
+            var leftUpMidPoint = new Point(midPoint.X - 1, midPoint.Y - 1);
+            var firstQuadrantResult = BinarySearchInMatrix(matrix, a, new(b.X, leftUpMidPoint.Y), new(leftUpMidPoint.X, c.Y),
                 leftUpMidPoint, x);
-            var upMidPoint = new Point(leftUpMidPoint.X, midPoint.Y);
-            var secondQuadrantResult = firstQuadrantResult ??
-                                       BinarySearchInMatrix(matrix, new(a.X, upMidPoint.Y), b, upMidPoint, new(upMidPoint.X, d.Y), x);
 
+            var upMidPoint = new Point(leftUpMidPoint.X, midPoint.Y);
             var leftMidPoint = new Point(midPoint.X, leftUpMidPoint.Y);
-            var thirdQuadrantResult = secondQuadrantResult ??
-                                      BinarySearchInMatrix(matrix, new(leftMidPoint.X, a.Y), leftMidPoint, c, new(d.X, leftMidPoint.Y), x);
-            return thirdQuadrantResult;
+
+            return firstQuadrantResult ?? FindInNeighbouringQudrants(matrix, a, b, c, d,
+                upMidPoint,
+                leftMidPoint,
+                x);
         }
         else
         {
@@ -76,19 +71,37 @@ public class MatrixSearcher
             //  |----M----|
             //  | 3  | 1  |
             //  C---------D
-            var rightDownMidPoint = new Point(postMidPointX, postMidPointY);
-            firstQuadrantResult = BinarySearchInMatrix(matrix, rightDownMidPoint, new(rightDownMidPoint.X, b.Y),
+            var rightDownMidPoint = new Point( midPoint.X + 1, midPoint.Y + 1);
+            var firstQuadrantResult = BinarySearchInMatrix(matrix, rightDownMidPoint, new(rightDownMidPoint.X, b.Y),
                 new(c.X, rightDownMidPoint.Y), d, x);
-            var rightMidPoint = new Point(midPoint.X, rightDownMidPoint.Y);
-            var secondQuadrantResult = firstQuadrantResult ??
-                                       BinarySearchInMatrix(matrix, new(a.X, rightMidPoint.Y), b, rightMidPoint, new(rightMidPoint.X, d.Y),
-                                           x);
 
+            var rightMidPoint = new Point(midPoint.X, rightDownMidPoint.Y);
             var downMidPoint = new Point(rightDownMidPoint.X, midPoint.Y);
-            var thirdQuadrantResult = secondQuadrantResult ??
-                                      BinarySearchInMatrix(matrix, new(downMidPoint.X, a.Y), downMidPoint, c, new(d.X, downMidPoint.Y), x);
-            return thirdQuadrantResult;
+             return firstQuadrantResult ?? FindInNeighbouringQudrants(matrix, a, b, c, d,
+                 rightMidPoint,
+                 downMidPoint,
+                x);
         }
+    }
+
+    private Point? FindInNeighbouringQudrants(int[,] matrix,
+        Point a,
+        Point b,
+        Point c,
+        Point d,
+        Point secondQuadrantMidPointNeighbour,
+        Point thirdQuadrantMidPointNeighbour,
+        int x)
+    {
+        // 2nd quadrant
+        var finalResult = BinarySearchInMatrix(matrix, new(a.X, secondQuadrantMidPointNeighbour.Y), b,
+            secondQuadrantMidPointNeighbour, new(secondQuadrantMidPointNeighbour.X, d.Y), x);
+
+        // 3rd quadrant
+        finalResult ??= BinarySearchInMatrix(matrix, new(thirdQuadrantMidPointNeighbour.X, a.Y), thirdQuadrantMidPointNeighbour,
+            c, new(d.X, thirdQuadrantMidPointNeighbour.Y), x);
+
+        return finalResult;
     }
 
     private static bool IsOutsideBounds(int[,] matrix, Point point)
@@ -98,4 +111,5 @@ public class MatrixSearcher
                || point.X >= matrix.GetLength(0)
                || point.Y >= matrix.GetLength(1);
     }
+
 }
