@@ -19,22 +19,50 @@ public class FindInSortedMatrixTests
     [TestCase(5, 7)]
     [TestCase(1, 1)]
     [TestCase(10, 1)]
- //   [TestCase(1_000, 1_000)]
+    [TestCase(100, 100)]
+    [TestCase(1_000, 1_000)]
+    [TestCase(10_000, 10_000)]
     public void WhenAllNumbersAreDistinct_FindsAllNumbers(int m, int n)
     {
         var matrix = GenerateMatrix(m, n, (i, j) => i * n + j);
         var searcher = InitMatrixSearcher();
 
         // Act & Assert
+        const int sizeLimit = 100;
+        if (m > sizeLimit || n > sizeLimit) // Only check diagonal if matrix is too big
+        {
+            VerifyDiagonal(m, n, searcher, matrix);
+        }
+        else
+        {
+            VerifyAllPoints(m, n, searcher, matrix);
+        }
+    }
+
+    private static void VerifyDiagonal(int m, int n, MatrixSearcher searcher, int[,] matrix)
+    {
+        for (int i = 0, j= 0; i < m && j < n; ++i, ++j)
+        {
+            VerifyExactPoint(i, j, searcher, matrix);
+        }
+    }
+
+    private static void VerifyAllPoints(int m, int n, MatrixSearcher searcher, int[,] matrix)
+    {
         for (int i = 0; i < m; ++i)
         {
             for (int j = 0; j < n; ++j)
             {
-                var targetPoint = new Point(i, j);
-                var resultPoint = searcher.FindInSortedMatrix(matrix, matrix[i, j]);
-                Assert.That(resultPoint, Is.EqualTo(targetPoint));
+                VerifyExactPoint(i, j, searcher, matrix);
             }
         }
+    }
+
+    private static void VerifyExactPoint(int i, int j, MatrixSearcher searcher, int[,] matrix)
+    {
+        var targetPoint = new Point(i, j);
+        var resultPoint = searcher.FindInSortedMatrix(matrix, matrix[i, j]);
+        Assert.That(resultPoint, Is.EqualTo(targetPoint));
     }
 
     [TestCase(10, 10)]
@@ -43,7 +71,7 @@ public class FindInSortedMatrixTests
     [TestCase(5, 7)]
     [TestCase(1, 1)]
     [TestCase(10, 1)]
- //   [TestCase(1_000, 1_000)]
+    [TestCase(1_000, 1_000)]
     public void WhenAllNumbersAreTheSame_FindsProperNumber(int m, int n)
     {
         const int value = 10;
@@ -66,7 +94,7 @@ public class FindInSortedMatrixTests
     [TestCase(5, 7)]
     [TestCase(1, 1)]
     [TestCase(10, 1)]
- //   [TestCase(1_000, 1_000)]
+    [TestCase(1_000, 1_000)]
     public void WhenNumbersInRowAreTheSame_FindsAllNumbers(int m, int n)
     {
         var matrix = GenerateMatrix(m, n, (i, _) => i);
@@ -88,7 +116,7 @@ public class FindInSortedMatrixTests
     [TestCase(5, 7)]
     [TestCase(1, 1)]
     [TestCase(10, 1)]
- //   [TestCase(1_000, 1_000)]
+    [TestCase(1_000, 1_000)]
     public void WhenNumbersInColumnAreTheSame_FindsAllNumbers(int m, int n)
     {
         var matrix = GenerateMatrix(m, n, (_, j) => j);
