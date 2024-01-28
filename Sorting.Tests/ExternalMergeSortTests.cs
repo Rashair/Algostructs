@@ -15,12 +15,13 @@ public class ExternalMergeSortTests : ExternalSortingTests
     public void TestSmallFile()
     {
         var sort = InitSort();
-        var file = GenerateSampleFile(10_000, 1_000);
+        const uint count = 10_000;
+        var file = GenerateSampleFile(count, 1_000);
 
         // Act
         sort.Apply(file);
 
-        AssertSorted(file);
+        AssertSorted(file, count);
     }
 
     [Category("LongRunning")]
@@ -35,7 +36,7 @@ public class ExternalMergeSortTests : ExternalSortingTests
         // Act
         sort.Apply(file);
 
-        AssertSorted(file);
+        AssertSorted(file, (uint)count);
     }
 
     [Test]
@@ -43,11 +44,12 @@ public class ExternalMergeSortTests : ExternalSortingTests
     public void TestHugeFile()
     {
         var sort = InitSort();
-        var file = GenerateSampleFile(uint.MaxValue, int.MaxValue / 2);
+        const uint count = uint.MaxValue;
+        var file = GenerateSampleFile(count, int.MaxValue / 2);
 
         // Act
         sort.Apply(file);
 
-        AssertSorted(file);
+        AssertSorted(file, count);
     }
 }

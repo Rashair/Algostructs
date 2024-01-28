@@ -34,9 +34,10 @@ public abstract class ExternalSortingTests
         return fileName;
     }
 
-    public void AssertSorted(string fileName)
+    public static void AssertSorted(string fileName, uint expectedCount)
     {
         using var reader = new StreamReader(fileName);
+        int resultCount = 0;
         var prev = long.MinValue;
         while (reader.ReadLine() is { } line)
         {
@@ -49,7 +50,11 @@ public abstract class ExternalSortingTests
             {
                 Assert.Fail($"Failed to parse line: {line}");
             }
+
+            ++resultCount;
         }
+
+        Assert.That(resultCount, Is.EqualTo(expectedCount));
     }
 
 
