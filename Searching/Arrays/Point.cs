@@ -30,4 +30,9 @@ public class Point
     {
         return !(a == b);
     }
+
+    public override string ToString()
+    {
+        return $"({X}, {Y})";
+    }
 }
