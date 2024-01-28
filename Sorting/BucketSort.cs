@@ -3,10 +3,12 @@
 public class BucketSort<T> : ISort<T>
 {
     private readonly Func<T, int> _keyConverter;
+    private readonly ISort<T> _bucketSortingAlgorithm;
 
     public BucketSort(Func<T, int> keyConverter)
     {
         _keyConverter = keyConverter;
+        _bucketSortingAlgorithm = new QuickSort<T>(keyConverter);
     }
 
     public IList<T> Apply(IList<T> values)
@@ -37,7 +39,7 @@ public class BucketSort<T> : ISort<T>
 
         for (int b = 0; b < bucketSize; ++b)
         {
-            buckets[b].Sort();
+            _bucketSortingAlgorithm.Apply(buckets[b]);
         }
 
         int valuesIter = 0;

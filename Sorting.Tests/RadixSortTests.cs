@@ -1,7 +1,7 @@
 ﻿namespace Sorting.Tests;
 
 [TestFixture]
-[TestOf(typeof(BucketSort<>))]
+[TestOf(typeof(RadixSort<>))]
 public class RadixSortTests : SortingTests
 {
     protected override ISort<int> InitSort()
