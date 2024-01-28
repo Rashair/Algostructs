@@ -61,9 +61,6 @@ public class ChunksMerger
             using (var aReader = new NumbersReader(GetChunkFileName(chunkA)))
             {
                 WriteSorted(aReader, bReader, targetWriter);
-
-                WriteToEnd(aReader, targetWriter);
-                WriteToEnd(bReader, targetWriter);
             }
 
             File.Delete(GetChunkFileName(chunkA));
@@ -79,7 +76,9 @@ public class ChunksMerger
 
     private static void WriteSorted(NumbersReader aReader, NumbersReader bReader, StreamWriter targetWriter)
     {
-        for (long? a = aReader.Read(), b = bReader.Read();
+        long? a;
+        long? b;
+        for (a = aReader.Read(), b = bReader.Read();
              a != null && b != null;)
         {
             if (a < b)
@@ -93,13 +92,15 @@ public class ChunksMerger
                 b = bReader.Read();
             }
         }
-    }
 
-    private static void WriteToEnd(NumbersReader reader, StreamWriter targetWriter)
-    {
-        for (long? k = reader.Read(); k != null; k = reader.Read())
+        for (; a != null; a = aReader.Read())
         {
-            targetWriter.WriteLine(k);
+            targetWriter.WriteLine(a);
+        }
+
+        for (; b != null; b = bReader.Read())
+        {
+            targetWriter.WriteLine(b);
         }
     }
 

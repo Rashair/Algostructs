@@ -9,24 +9,29 @@ public interface IExternalSort
 
 public class ExternalMergeSort : IExternalSort
 {
-    private const int NumbersLimit = 32_000_000; // 256M
+    private const int NumbersLimit = 32_000_000; // 256M for 64-bit numbers
 
     public void Apply(string filePath)
     {
         try
         {
-            var numbersBatch = new List<long>(NumbersLimit);
-            var chunksNum = GenerateSortedChunks(filePath, numbersBatch);
-
-            var chunksMerger = new ChunksMerger(chunksNum);
-            chunksMerger.MergeSortedChunks();
-            MoveChunkToFile(0, filePath);
+            ApplyInternal(filePath);
         }
         catch (Exception)
         {
             CleanUpChunks();
             throw;
         }
+    }
+
+    private static void ApplyInternal(string filePath)
+    {
+        var numbersBatch = new List<long>(NumbersLimit);
+        var chunksNum = GenerateSortedChunks(filePath, numbersBatch);
+
+        var chunksMerger = new ChunksMerger(chunksNum);
+        chunksMerger.MergeSortedChunks();
+        MoveChunkToFile(0, filePath);
     }
 
     private static int GenerateSortedChunks(string filePath, List<long> numbersBatch)

@@ -25,6 +25,7 @@ public class ExternalMergeSortTests : ExternalSortingTests
     }
 
     [Category("LongRunning")]
+    [TestCase(int.MaxValue / 32, Description = "1/32 of int max value")]
     [TestCase(int.MaxValue / 16, Description = "1/16 of int max value")]
     [TestCase(int.MaxValue / 8, Description = "1/8 of int max value")]
     [TestCase(int.MaxValue / 4, Description = "1/4 of int max value")]
