@@ -24,40 +24,45 @@ public class MatrixSearcher
         }
 
         // First quadrant is different for both
-        if (matrix.GetValue(midPoint) > x)
-        {
-            //  A---------B
-            //  |  1 |  2 |
-            //  |----M----|
-            //  |  3 |    |
-            //  C---------D
-            var upperLeftSubQuadrant = quadrant.GetUpperLeftSubQuadrant();
-            var upperMidQuadrant = quadrant.GetUpperMidSubQuadrant();
-            var leftMidQuadrant = quadrant.GetLeftMidSubQuadrant();
+        return matrix.GetValue(midPoint) > x
+            ? FindInUpperMidQuadrants(matrix, quadrant, x)
+            : FindInLowerRightQuadrants(matrix, quadrant, x);
+    }
 
-            return FindInQuadrants(matrix,
-                upperLeftSubQuadrant,
-                upperMidQuadrant,
-                leftMidQuadrant,
-                x);
-        }
-        else
-        {
-            //  A---------B
-            //  |    |  2 |
-            //  |----M----|
-            //  | 3  | 1  |
-            //  C---------D
-            var rightDownMidQuadrant = quadrant.GetLowerRightSubQuadrant();
-            var rightMidQuadrant = quadrant.GetRightMidSubQuadrant();
-            var downMidQuadrant = quadrant.GetLowerMidSubQuadrant();
+    private Point? FindInLowerRightQuadrants(int[,] matrix, Quadrant quadrant, int x)
+    {
+        //  A---------B
+        //  |    |  2 |
+        //  |----M----|
+        //  | 3  | 1  |
+        //  C---------D
+        var lowerRightMidQuadrant = quadrant.GetLowerRightSubQuadrant();
+        var rightMidQuadrant = quadrant.GetRightMidSubQuadrant();
+        var lowerMidQuadrant = quadrant.GetLowerMidSubQuadrant();
 
-            return FindInQuadrants(matrix,
-                rightDownMidQuadrant,
-                rightMidQuadrant,
-                downMidQuadrant,
-                x);
-        }
+        return FindInQuadrants(matrix,
+            lowerRightMidQuadrant,
+            rightMidQuadrant,
+            lowerMidQuadrant,
+            x);
+    }
+
+    private Point? FindInUpperMidQuadrants(int[,] matrix, Quadrant quadrant, int x)
+    {
+        //  A---------B
+        //  |  1 |  2 |
+        //  |----M----|
+        //  |  3 |    |
+        //  C---------D
+        var upperLeftSubQuadrant = quadrant.GetUpperLeftSubQuadrant();
+        var upperMidQuadrant = quadrant.GetUpperMidSubQuadrant();
+        var leftMidQuadrant = quadrant.GetLeftMidSubQuadrant();
+
+        return FindInQuadrants(matrix,
+            upperLeftSubQuadrant,
+            upperMidQuadrant,
+            leftMidQuadrant,
+            x);
     }
 
     private Point? FindInQuadrants(int[,] matrix,
