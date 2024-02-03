@@ -7,7 +7,6 @@ namespace Parallelism.Tests.Philosophers;
 [TestOf(typeof(DiningPhilosophers))]
 public class DiningPhilosophersTests
 {
-
     [TestCase(1)]
     [TestCase(17)]
     [TestCase(55)]
