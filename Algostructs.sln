@@ -17,6 +17,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		README.md = README.md
 		.github\workflows\dotnet.yml = .github\workflows\dotnet.yml
+		Directory.Packages.props = Directory.Packages.props
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sorting", "Sorting\Sorting.csproj", "{C11FF1B6-F837-47B0-A577-9D1BDEAE6006}"
@@ -36,6 +37,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DynamicProgramming", "DynamicProgramming\DynamicProgramming.csproj", "{F9DBBDE8-4D3B-4761-A9EC-8108AE3E6D8E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DynamicProgramming.Tests", "DynamicProgramming.Tests\DynamicProgramming.Tests.csproj", "{52E8EC69-12DC-4392-9BF1-B6E590D079C1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Parallelism", "Parallelism\Parallelism.csproj", "{66827643-6567-4F3E-921C-951DB1BE1272}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Parallelism.Tests", "Parallelism.Tests\Parallelism.Tests.csproj", "{89012DAA-6F07-49F7-A1D1-64240935EF3A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -99,6 +104,14 @@ Global
 		{52E8EC69-12DC-4392-9BF1-B6E590D079C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{52E8EC69-12DC-4392-9BF1-B6E590D079C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{52E8EC69-12DC-4392-9BF1-B6E590D079C1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{66827643-6567-4F3E-921C-951DB1BE1272}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66827643-6567-4F3E-921C-951DB1BE1272}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66827643-6567-4F3E-921C-951DB1BE1272}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66827643-6567-4F3E-921C-951DB1BE1272}.Release|Any CPU.Build.0 = Release|Any CPU
+		{89012DAA-6F07-49F7-A1D1-64240935EF3A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{89012DAA-6F07-49F7-A1D1-64240935EF3A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{89012DAA-6F07-49F7-A1D1-64240935EF3A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{89012DAA-6F07-49F7-A1D1-64240935EF3A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
