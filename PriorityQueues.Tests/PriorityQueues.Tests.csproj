@@ -4,14 +4,16 @@
         <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
         <ImplicitUsings>true</ImplicitUsings>
     </PropertyGroup>
-    <ItemGroup>
-        <ProjectReference Include="..\PriorityQueues\PriorityQueues.csproj" />
-    </ItemGroup>
+
     <ItemGroup>
         <PackageReference Include="Microsoft.NET.Test.Sdk"/>
         <PackageReference Include="NUnit"/>
         <PackageReference Include="NUnit3TestAdapter"/>
         <PackageReference Include="NUnit.Analyzers"/>
         <PackageReference Include="coverlet.collector"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\PriorityQueues\PriorityQueues.csproj" />
     </ItemGroup>
 </Project>

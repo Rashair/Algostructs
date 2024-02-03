@@ -1,19 +1,21 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFrameworks>net8.0</TargetFrameworks>
-    
-    <IsPackable>false</IsPackable>
-  </PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" />
-    <PackageReference Include="NUnit" />
-    <PackageReference Include="NUnit3TestAdapter" />
-  </ItemGroup>
+        <IsPackable>false</IsPackable>
+    </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\DynamicProgramming\DynamicProgramming.csproj" />
-  </ItemGroup>
-  
+    <ItemGroup>
+        <PackageReference Include="Microsoft.NET.Test.Sdk"/>
+        <PackageReference Include="NUnit"/>
+        <PackageReference Include="NUnit3TestAdapter"/>
+        <PackageReference Include="NUnit.Analyzers"/>
+        <PackageReference Include="coverlet.collector"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\DynamicProgramming\DynamicProgramming.csproj"/>
+    </ItemGroup>
+
 </Project>
