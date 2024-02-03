@@ -4,6 +4,7 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>true</ImplicitUsings>
     <IsPackable>false</IsPackable>
+    <NoWarn>NUnit1027</NoWarn> <!-- Ignore warning about NUnit params for CancelAfter -->
   </PropertyGroup>
 
     <ItemGroup>

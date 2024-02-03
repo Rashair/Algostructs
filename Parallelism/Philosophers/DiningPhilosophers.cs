@@ -15,7 +15,7 @@ public class DiningPhilosophers
         _mealService = mealService;
     }
 
-    public void Feast()
+    public void Feast(CancellationToken ct = default)
     {
 
     }
