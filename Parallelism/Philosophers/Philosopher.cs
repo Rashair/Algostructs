@@ -4,9 +4,9 @@ public class Philosopher
 {
     private bool _isHungry;
 
-    public Philosopher()
+    public Philosopher(bool isHungry = true)
     {
-        _isHungry = true;
+        _isHungry = isHungry;
     }
 
     public bool IsHungry()
@@ -14,10 +14,8 @@ public class Philosopher
         return _isHungry;
     }
 
-    public void Eat (ICutleryPiece leftChopstick, ICutleryPiece rightChopstick, IMeal meal)
+    public void Eat(ICutleryPiece leftChopstick, ICutleryPiece rightChopstick, IMeal meal)
     {
         _isHungry = false;
     }
 }
-
-

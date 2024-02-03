@@ -8,18 +8,17 @@ namespace Parallelism.Tests.Philosophers;
 public class DiningPhilosophersTests
 {
 
-    [Test]
-    public async Task WhenFeastCompletes_ThenPhilosophersAreNotHungry()
+    [TestCase(1)]
+    [TestCase(17)]
+    [TestCase(55)]
+    [TestCase(100)]
+    [TestCase(1001)]
+    [TestCase(100_000)]
+    public async Task WhenFeastCompletes_ThenPhilosophersAreNotHungry(int philosophersCount)
     {
         // Arrange
-        var philosophers = new Philosopher[]
-        {
-            new Philosopher()
-        };
-        var chopsticks = new Chopstick[]
-        {
-            new Chopstick()
-        };
+        var philosophers = Enumerable.Range(0, philosophersCount).Select(_ => new Philosopher()).ToArray();
+        var chopsticks = Enumerable.Range(0, philosophersCount).Select(_ => new Chopstick()).ToArray();
         var mealService = new MealService();
 
         var diningPhilosophers = new DiningPhilosophers(philosophers, chopsticks, mealService);
@@ -36,14 +35,9 @@ public class DiningPhilosophersTests
     public async Task Feast_ShouldComplete(CancellationToken ct)
     {
         // Arrange
-        var philosophers = new Philosopher[]
-        {
-            new Philosopher()
-        };
-        var chopsticks = new Chopstick[]
-        {
-            new Chopstick()
-        };
+        const int philosophersCount = 5;
+        var philosophers =  Enumerable.Range(0, philosophersCount).Select(_ => new Philosopher()).ToArray();
+        var chopsticks = Enumerable.Range(0, philosophersCount).Select(_ => new Chopstick()).ToArray();
         var mealService = new MealService();
 
         var diningPhilosophers = new DiningPhilosophers(philosophers, chopsticks, mealService);
@@ -56,14 +50,9 @@ public class DiningPhilosophersTests
     public async Task Feast_ShouldBeCancellable()
     {
         // Arrange
-        var philosophers = new Philosopher[]
-        {
-            new Philosopher()
-        };
-        var chopsticks = new Chopstick[]
-        {
-            new Chopstick()
-        };
+        const int philosophersCount = 7;
+        var philosophers =  Enumerable.Range(0, philosophersCount).Select(_ => new Philosopher()).ToArray();
+        var chopsticks = Enumerable.Range(0, philosophersCount).Select(_ => new Chopstick()).ToArray();
         var mealService = new MealService();
 
         var diningPhilosophers = new DiningPhilosophers(philosophers, chopsticks, mealService);
