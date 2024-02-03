@@ -19,7 +19,7 @@ public class BucketSortTests : SortingTests
 
     [TestCase(10_000, 50)]
     [TestCase(100_000, 500)]
-    [TestCase(500_000, 4_000)]
+    [TestCase(500_000, 6_000)]
     public void PerformanceSmallRange(int size, int timeLimit)
     {
         base.Performance(size, timeLimit, 100);

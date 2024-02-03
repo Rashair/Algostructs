@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>true</ImplicitUsings>
+    <IsPackable>false</IsPackable>
+    <NoWarn>NUnit1027</NoWarn> <!-- Ignore warning about NUnit params for CancelAfter -->
+  </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.NET.Test.Sdk"/>
+        <PackageReference Include="NUnit"/>
+        <PackageReference Include="NUnit3TestAdapter"/>
+        <PackageReference Include="NUnit.Analyzers"/>
+        <PackageReference Include="coverlet.collector"/>
+    </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Parallelism\Parallelism.csproj" />
+  </ItemGroup>
+  
+</Project>
