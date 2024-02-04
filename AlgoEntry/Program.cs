@@ -1,21 +1,16 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
 using AlgoEntry;
-using DynamicProgramming;
-using Parallelism;
+using Messaging;
 
 
-Executor.RunUntilError(() =>
+var processor = new MessageProcessor<int>();
+
+for (int j = 0; j < 1_000; j++)
 {
-    Console.Write("N: ");
-    var input = int.Parse(Console.ReadLine()!);
-    Executor.MeasureRuntime(() =>
-    {
-        var fb = new ParallelFizzBuzz(input);
-        fb.Execute().Wait();
-    });
-});
+    processor.OnMessage(j);
+    await Task.Delay(10);
+}
 
 
-
-
+await processor.StopProcessing();
