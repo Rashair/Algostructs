@@ -1,8 +1,8 @@
 ﻿namespace Messaging;
 
-public class EventProcessor<TEvent> : IObservable<TEvent>
+public class EventProcessor<TEvent>
 {
-    private readonly HashSet<IObserver<TEvent>> _observers;
+    private readonly HashSet<IAsyncEventObserver<TEvent>> _observers;
     private readonly HashSet<TEvent> _events;
 
     public EventProcessor()
@@ -11,41 +11,41 @@ public class EventProcessor<TEvent> : IObservable<TEvent>
         _events = [];
     }
 
-    public IDisposable Subscribe(IObserver<TEvent> observer)
+    public async Task<IDisposable> Subscribe(IAsyncEventObserver<TEvent> observer)
     {
         if (_observers.Add(observer))
         {
             // Provide observer with existing data.
-            foreach (var item in _events)
+            foreach (var ev in _events)
             {
-                observer.OnNext(item);
+                await observer.OnNext(ev);
             }
         }
 
         return new Unsubscriber<TEvent>(_observers, observer);
     }
 
-    public void OnEvent(TEvent @event)
+    public Task OnEvent(TEvent @event)
     {
         _events.Add(@event);
-        Parallel.ForEach(_observers, o => o.OnNext(@event));
+        return Task.WhenAll(_observers.Select(o => o.OnNext(@event)));
     }
 
-    public void OnCompleted()
+    public async Task OnCompleted(int count = 0)
     {
-        Parallel.ForEach(_observers, o => o.OnCompleted());
+         await Task.WhenAll(_observers.Select(o => o.OnCompleted(count)));
         _observers.Clear();
     }
 }
 
 internal sealed class Unsubscriber<TEvent> : IDisposable
 {
-    private readonly ISet<IObserver<TEvent>> _observers;
-    private readonly IObserver<TEvent> _observer;
+    private readonly ISet<IAsyncEventObserver<TEvent>> _observers;
+    private readonly IAsyncEventObserver<TEvent> _observer;
 
     internal Unsubscriber(
-        ISet<IObserver<TEvent>> observers,
-        IObserver<TEvent> observer) => (_observers, _observer) = (observers, observer);
+        ISet<IAsyncEventObserver<TEvent>> observers,
+        IAsyncEventObserver<TEvent> observer) => (_observers, _observer) = (observers, observer);
 
     public void Dispose() => _observers.Remove(_observer);
 }

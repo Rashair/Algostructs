@@ -1,11 +1,12 @@
 ﻿namespace Messaging;
 
-public class EventObserver<TEvent> : IObserver<TEvent>
+public class EventObserver<TEvent> : IAsyncEventObserver<TEvent>
 {
     private readonly Random _random;
     private readonly int _number;
     private readonly string _name;
     private readonly TextWriter _output;
+    private int _eventsCount;
 
     public EventObserver(int? number = null, TextWriter? output = null)
     {
@@ -15,9 +16,14 @@ public class EventObserver<TEvent> : IObserver<TEvent>
         _output = output ?? Console.Out;
     }
 
-    public void OnCompleted()
+    public async Task OnCompleted(int count = 0)
     {
-        _output.WriteLine($"{_name} Completed!");
+        while (_eventsCount < count)
+        {
+            await Task.Delay(100);
+        }
+
+        _output.WriteLine($"{_name} Completed {_eventsCount}!");
     }
 
     public void OnError(Exception error)
@@ -25,9 +31,10 @@ public class EventObserver<TEvent> : IObserver<TEvent>
         _output.WriteLine($"{_name} Error: {error.Message}");
     }
 
-    public void OnNext(TEvent value)
+    public async Task OnNext(TEvent value)
     {
-        _output.WriteLine($"{_name} Next: {value}");
-        Thread.Sleep(_random.Next(100 / (_number + 1)));
+        await _output.WriteLineAsync($"{_name} Next: {value}");
+        await Task.Delay(10_000 / (_number + 1));
+        Interlocked.Increment(ref _eventsCount);
     }
 }
