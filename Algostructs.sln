@@ -46,6 +46,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Parallelism", "Parallelism\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Parallelism.Tests", "Parallelism.Tests\Parallelism.Tests.csproj", "{89012DAA-6F07-49F7-A1D1-64240935EF3A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Messaging", "Messaging\Messaging.csproj", "{BBEB5AC3-0688-457F-8038-35A0DA888921}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -124,6 +126,10 @@ Global
 		{CDB43F7D-A3A4-41A8-A78B-BE9DA55F33D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CDB43F7D-A3A4-41A8-A78B-BE9DA55F33D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CDB43F7D-A3A4-41A8-A78B-BE9DA55F33D9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BBEB5AC3-0688-457F-8038-35A0DA888921}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BBEB5AC3-0688-457F-8038-35A0DA888921}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BBEB5AC3-0688-457F-8038-35A0DA888921}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BBEB5AC3-0688-457F-8038-35A0DA888921}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

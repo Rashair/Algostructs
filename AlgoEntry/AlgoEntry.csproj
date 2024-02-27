@@ -9,6 +9,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\DynamicProgramming\DynamicProgramming.csproj" />
+      <ProjectReference Include="..\Messaging\Messaging.csproj" />
       <ProjectReference Include="..\Parallelism\Parallelism.csproj" />
     </ItemGroup>
 
