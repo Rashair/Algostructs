@@ -48,42 +48,55 @@ public class Robot : IRobot
         switch (_direction)
         {
             case Direction.Up:
-                if (_row > 0 && _board[_row - 1, _col] != BlockedPos)
+                _row -= 1;
+                if (IsValidPosition())
                 {
-                    _row -= 1;
                     return true;
                 }
 
+                _row += 1;
                 return false;
 
             case Direction.Down:
-                if (_row < _m - 1 && _board[_row + 1, _col] != BlockedPos)
+                _row += 1;
+                if (IsValidPosition())
                 {
-                    _row += 1;
                     return true;
                 }
 
+                _row -= 1;
                 return false;
 
             case Direction.Left:
-                if (_col > 0 && _board[_row, _col - 1] != BlockedPos)
+                _col -= 1;
+                if (IsValidPosition())
                 {
-                    _col -= 1;
                     return true;
                 }
 
+                _col += 1;
                 return false;
+
             case Direction.Right:
-                if (_col < _n - 1 && _board[_row, _col + 1] != BlockedPos)
+                _col += 1;
+                if (IsValidPosition())
                 {
-                    _col += 1;
                     return true;
                 }
 
+                _col -= 1;
                 return false;
+
             default:
                 throw new ArgumentOutOfRangeException();
         }
+    }
+
+    private bool IsValidPosition()
+    {
+        return _row >= 0 && _row < _m
+                         && _col >= 0 && _col < _n
+                         && _board[_row, _col] != BlockedPos;
     }
 
     public void TurnLeft()
