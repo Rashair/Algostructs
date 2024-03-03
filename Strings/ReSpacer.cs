@@ -5,19 +5,17 @@ namespace Strings;
 public class ReSpacer
 {
     private readonly HashSet<string> _dictionary;
-    private readonly string? _document;
+    private readonly string _document;
 
-    private int _minUnrecognizedChars;
-    private List<int> _spacesPositions;
+    private readonly ParseResult?[] _memory;
 
     public ReSpacer(HashSet<string> dictionary, string document)
     {
         _dictionary = dictionary;
         _document = document;
-        _spacesPositions = new();
-        _minUnrecognizedChars = _document.Length;
-    }
 
+        _memory = new ParseResult[document.Length];
+    }
 
     public string? ReSpace()
     {
@@ -26,49 +24,54 @@ public class ReSpacer
             return _document;
         }
 
-        ReSpace(0, 1, new(), 0);
+        var parseResult = ReSpace(0);
 
-        var solutionBuilder = new StringBuilder();
-        int prevPos = 0;
-        foreach (var pos in _spacesPositions)
-        {
-            solutionBuilder.Append(_document.AsSpan(prevPos, pos - prevPos)).Append(' ');
-            prevPos = pos;
-        }
-
-        solutionBuilder.Append(_document.AsSpan(prevPos));
-
-        return solutionBuilder.ToString();
+        return parseResult.Document;
     }
 
-    private void ReSpace(int start, int count, LinkedList<int> positionBuilder, int builderUnrecognisedChars)
+    private ParseResult ReSpace(int start)
     {
-        if (start + count + 1 <= _document!.Length)
+        if (start >= _document.Length)
         {
-            ReSpace(start, count + 1, positionBuilder, builderUnrecognisedChars);
+            return new(0, "");
         }
 
-        var word = _document.Substring(start, count);
-        int cost = _dictionary.Contains(word) ? 0 : word.Length;
-
-        var newPos = start + count;
-        builderUnrecognisedChars += cost;
-        if (newPos == _document!.Length)
+        if (_memory[start] != null)
         {
-            if (builderUnrecognisedChars < _minUnrecognizedChars)
+            return _memory[start]!;
+        }
+
+        var bestUnrecognisedChars = int.MaxValue;
+        var bestDocument = "";
+        int iter = start;
+        var currentWord = "";
+        for (; iter < _document.Length; ++iter)
+        {
+            currentWord += _document[iter];
+            var cost = _dictionary.Contains(currentWord) ? 0 : currentWord.Length;
+            var subResult = ReSpace(iter + 1);
+            if (subResult.UnrecognisedChars + cost + 1 < bestUnrecognisedChars)
             {
-                _minUnrecognizedChars = builderUnrecognisedChars;
-                _spacesPositions = positionBuilder.ToList();
+                bestUnrecognisedChars = subResult.UnrecognisedChars + cost + 1;
+                bestDocument = currentWord + (" " + subResult.Document).TrimEnd();
             }
-
-            return;
         }
 
-        if (builderUnrecognisedChars < _minUnrecognizedChars)
+        _memory[start] = new(bestUnrecognisedChars, bestDocument);
+
+        return _memory[start]!;
+    }
+
+
+    public class ParseResult
+    {
+        public ParseResult(int unrecognisedChars, string document)
         {
-            positionBuilder.AddLast(start + count);
-            ReSpace(newPos, 1, positionBuilder, builderUnrecognisedChars);
-            positionBuilder.RemoveLast();
+            UnrecognisedChars = unrecognisedChars;
+            Document = document;
         }
+
+        public string Document { get; set; }
+        public int UnrecognisedChars { get; set; }
     }
 }
