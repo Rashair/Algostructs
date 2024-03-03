@@ -22,4 +22,22 @@ public class ReSpacerTests
 
         Assert.That(res, Is.EqualTo("jess looked just like tim her brother"));
     }
+
+    [Test]
+    public void OtherCase()
+    {
+        var document = "jesstephen";
+        var dictionary = new HashSet<string>()
+        {
+            "jess",
+            "stephen",
+        };
+
+        var spacer = new ReSpacer(dictionary, document);
+
+        // Act
+        var res = spacer.ReSpace();
+
+        Assert.That(res, Is.EqualTo("jes stephen"));
+    }
 }
