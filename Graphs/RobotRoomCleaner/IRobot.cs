@@ -48,7 +48,7 @@ public class Robot : IRobot
         switch (_direction)
         {
             case Direction.Up:
-                if (_row > 0)
+                if (_row > 0 && _board[_row - 1, _col] != BlockedPos)
                 {
                     _row -= 1;
                     return true;
@@ -57,7 +57,7 @@ public class Robot : IRobot
                 return false;
 
             case Direction.Down:
-                if (_row < _m - 1)
+                if (_row < _m - 1 && _board[_row + 1, _col] != BlockedPos)
                 {
                     _row += 1;
                     return true;
@@ -66,7 +66,7 @@ public class Robot : IRobot
                 return false;
 
             case Direction.Left:
-                if (_col > 0)
+                if (_col > 0 && _board[_row, _col - 1] != BlockedPos)
                 {
                     _col -= 1;
                     return true;
@@ -74,15 +74,13 @@ public class Robot : IRobot
 
                 return false;
             case Direction.Right:
-                if (_col < _n - 1)
+                if (_col < _n - 1 && _board[_row, _col + 1] != BlockedPos)
                 {
                     _col += 1;
                     return true;
                 }
 
                 return false;
-
-                break;
             default:
                 throw new ArgumentOutOfRangeException();
         }
